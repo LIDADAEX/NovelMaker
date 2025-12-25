@@ -1,86 +1,21 @@
 cmake_minimum_required(VERSION 3.16)
 
-project(NovelMaker VERSION 0.1 LANGUAGES CXX)
+# 定义整个解决方案的名称
+project(NovelMakerTop LANGUAGES CXX)
 
-set(CMAKE_AUTOUIC ON)
-set(CMAKE_AUTOMOC ON)
-set(CMAKE_AUTORCC ON)
-
+# 设置一些全局变量，比如 C++ 标准
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)
-find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
+# 开启 Qt 的自动处理 (MOC, UIC, RCC)
+set(CMAKE_AUTOMOC ON)
+set(CMAKE_AUTORCC ON)
+set(CMAKE_AUTOUIC ON)
 
-set(MAIN
-    src/main/main.cpp
-)
+# 核心步骤：添加子目录
+# 这会去寻找 MyUtils 文件夹下的 CMakeLists.txt 并执行它
+add_subdirectory(lib/CommonUI)
+add_subdirectory(lib/DataManager)
 
-set(UI
-    src/ui/enumlistwidget.h
-    src/ui/mainwindow.h src/ui/mainwindow.cpp src/ui/mainwindow.ui
-    src/ui/mainwidget.h src/ui/mainwidget.cpp src/ui/mainwidget.ui
-    src/ui/settingwidget.h src/ui/settingwidget.cpp src/ui/settingwidget.ui
-)
-
-set(SRC
-    ${MAIN}
-    ${UI}
-)
-
-set(PROJECT_SOURCES
-    ${SRC}
-)
-
-if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
-    find_package(Qt6 REQUIRED COMPONENTS Core)
-
-    qt_add_executable(NovelMaker
-        MANUAL_FINALIZATION
-        ${PROJECT_SOURCES}
-    )
-# Define target properties for Android with Qt 6 as:
-#    set_property(TARGET NovelMaker APPEND PROPERTY QT_ANDROID_PACKAGE_SOURCE_DIR
-#                 ${CMAKE_CURRENT_SOURCE_DIR}/android)
-# For more information, see https://doc.qt.io/qt-6/qt-add-executable.html#target-creation
-else()
-    if(ANDROID)
-        add_library(NovelMaker SHARED
-            ${PROJECT_SOURCES}
-        )
-# Define properties for Android with Qt 5 after find_package() calls as:
-#    set(ANDROID_PACKAGE_SOURCE_DIR "${CMAKE_CURRENT_SOURCE_DIR}/android")
-    else()
-        add_executable(NovelMaker
-            ${PROJECT_SOURCES}
-        )
-    endif()
-endif()
-
-target_link_libraries(NovelMaker PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
-target_include_directories(NovelMaker PRIVATE ${PROJECT_SOURCE_DIR})
-
-# Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
-# If you are developing for iOS or macOS you should consider setting an
-# explicit, fixed bundle identifier manually though.
-if(${QT_VERSION} VERSION_LESS 6.1.0)
-  set(BUNDLE_ID_OPTION MACOSX_BUNDLE_GUI_IDENTIFIER com.example.NovelMaker)
-endif()
-set_target_properties(NovelMaker PROPERTIES
-    ${BUNDLE_ID_OPTION}
-    MACOSX_BUNDLE_BUNDLE_VERSION ${PROJECT_VERSION}
-    MACOSX_BUNDLE_SHORT_VERSION_STRING ${PROJECT_VERSION_MAJOR}.${PROJECT_VERSION_MINOR}
-    MACOSX_BUNDLE TRUE
-    WIN32_EXECUTABLE TRUE
-)
-
-include(GNUInstallDirs)
-install(TARGETS NovelMaker
-    BUNDLE DESTINATION .
-    LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
-    RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
-)
-
-if(QT_VERSION_MAJOR EQUAL 6)
-    qt_finalize_executable(NovelMaker)
-endif()
+# 添加主程序目录
+add_subdirectory(NovelMaker)
