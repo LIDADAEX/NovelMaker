@@ -17,6 +17,7 @@ set(MAIN
 )
 
 set(UI
+    src/ui/enumlistwidget.h
     src/ui/mainwindow.h src/ui/mainwindow.cpp src/ui/mainwindow.ui
     src/ui/mainwidget.h src/ui/mainwidget.cpp src/ui/mainwidget.ui
     src/ui/settingwidget.h src/ui/settingwidget.cpp src/ui/settingwidget.ui
