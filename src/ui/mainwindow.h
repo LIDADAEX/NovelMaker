@@ -2,6 +2,9 @@
 #define MAINWINDOW_H
 
 #include <QMainWindow>
+// #include "lib/CommonUI/style/qssmanager.h"
+#include "mainwidget.h"
+#include "settingwidget.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -17,7 +20,18 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
 
+private slots:
+    void changeWidget(widget targetWidget);
+
 private:
     Ui::MainWindow *ui;
+
+    widget m_presentWidget;
+    widget m_lastWidget;
+
+    // CommonUI::QssManager* m_qssManager;
+
+    MainWidget* m_mainWidget;
+    SettingWidget* m_settingWidget;
 };
 #endif // MAINWINDOW_H

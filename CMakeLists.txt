@@ -12,14 +12,28 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
 
+set(MAIN
+    src/main/main.cpp
+)
+
+set(UI
+    src/ui/mainwindow.h src/ui/mainwindow.cpp src/ui/mainwindow.ui
+    src/ui/mainwidget.h src/ui/mainwidget.cpp src/ui/mainwidget.ui
+    src/ui/settingwidget.h src/ui/settingwidget.cpp src/ui/settingwidget.ui
+)
+
+set(SRC
+    ${MAIN}
+    ${UI}
+)
+
 set(PROJECT_SOURCES
-        main.cpp
-        mainwindow.cpp
-        mainwindow.h
-        mainwindow.ui
+    ${SRC}
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
+    find_package(Qt6 REQUIRED COMPONENTS Core)
+
     qt_add_executable(NovelMaker
         MANUAL_FINALIZATION
         ${PROJECT_SOURCES}
@@ -43,6 +57,7 @@ else()
 endif()
 
 target_link_libraries(NovelMaker PRIVATE Qt${QT_VERSION_MAJOR}::Widgets)
+target_include_directories(NovelMaker PRIVATE ${PROJECT_SOURCE_DIR})
 
 # Qt for iOS sets MACOSX_BUNDLE_GUI_IDENTIFIER automatically since Qt 6.1.
 # If you are developing for iOS or macOS you should consider setting an
