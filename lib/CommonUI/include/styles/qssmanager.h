@@ -13,14 +13,12 @@ namespace CommonUI {
         Q_OBJECT
     public:
         explicit QssManager(QObject *parent = nullptr);
-        explicit QssManager(QString styleDir, QString outputFileName = QString("style"), QObject *parent = nullptr);
         explicit QssManager(QDir styleDir, QString outputFileName = QString("style"), QObject *parent = nullptr);
 
         void styleMergeLord(void);
         void dynamicStyleMergeLordStart(void);
         void dynamicStyleMergeLordStop(void);
 
-        void setStyleDir(QString styleDir, QString outputFileName = QString("style"));
         void setStyleDir(QDir styleDir, QString outputFileName = QString("style"));
 
     private:
