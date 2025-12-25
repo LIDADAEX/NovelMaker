@@ -1,0 +1,99 @@
+/* --- 开关与选项 (CheckBox & RadioButton) --- */
+QCheckBox, QRadioButton {
+    spacing: 8px;
+    color: #cccccc;
+}
+
+/* 复选框 Indicator */
+QCheckBox::indicator {
+    width: 14px;
+    height: 14px;
+    background-color: #1e1b24;
+    border: 1px solid #555555;
+    border-radius: 3px;
+}
+QCheckBox::indicator:hover { border-color: #d066a8; }
+QCheckBox::indicator:checked {
+    background-color: #d066a8;       /* 实心粉色填充 */
+    border-color: #d066a8;
+}
+
+/* 单选框 Indicator */
+QRadioButton::indicator {
+    width: 16px;
+    height: 16px;
+    background-color: #1e1b24;
+    border: 1px solid #555555;
+    border-radius: 8px;
+}
+QRadioButton::indicator:hover { border-color: #d066a8; }
+QRadioButton::indicator:checked {
+    background-color: #d066a8;
+    border-color: #d066a8;
+}
+
+/* --- 下拉框 (QComboBox & QFontComboBox) --- */
+QComboBox, QFontComboBox {
+    background-color: #151218;       /* 稍微深一点的背景，增加层次 */
+    border: 1px solid #3e3649;
+    border-radius: 4px;
+    padding: 4px 8px;
+    padding-right: 20px;
+    min-height: 24px;
+    color: #e0e0e0;
+}
+
+QComboBox:hover, QFontComboBox:hover {
+    background-color: #1e1b24;
+    border-color: #d066a8;           /* 悬停边框发光 */
+}
+
+QComboBox:on, QFontComboBox:on {
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+    background-color: #2b2533;
+}
+
+/* --- 下拉按钮区域 (Drop-down Button) --- */
+QComboBox::drop-down, QFontComboBox::drop-down {
+    subcontrol-origin: padding;
+    subcontrol-position: top right;
+    width: 24px;
+    
+    border-top-right-radius: 3px;
+    border-bottom-right-radius: 3px;
+    border-left: 1px solid #3e3649; /* 深色分割线 */
+    background-color: #2b2533;      /* 按钮区比输入区稍微亮一点，像个实体按键 */
+}
+
+QComboBox::drop-down:hover, QFontComboBox::drop-down:hover {
+    background-color: #383042;
+}
+
+/* --- 小箭头图标 (Down Arrow) --- */
+QComboBox::down-arrow, QFontComboBox::down-arrow {
+    /* 
+       建议使用白灰色 (#ccc) 的箭头图标
+       如果没有图标，这行 image:url(...) 可以去掉，但效果会打折
+    */
+    /*image: url(:/icons/arrow_down_light.png);*/
+    
+    width: 12px;
+    height: 12px;
+}
+
+QComboBox::down-arrow:on, QFontComboBox::down-arrow:on {
+    /* 打开时，箭头变成主题粉色 */
+    /*image: url(:/icons/arrow_down_neon.png);*/
+    top: 1px;
+}
+
+/* 下拉列表视图 */
+QComboBox QAbstractItemView, QFontComboBox QAbstractItemView {
+    background-color: #1e1b24;
+    border: 1px solid #3e3649;
+    color: #cccccc;
+    selection-background-color: #a0467f;
+    selection-color: #ffffff;
+    outline: none;
+}

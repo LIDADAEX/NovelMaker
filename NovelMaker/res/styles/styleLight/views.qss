@@ -1,0 +1,35 @@
+/* --- 列表与表格 (List & Table) --- */
+QListWidget, QListView, QTableWidget, QTableView {
+    background-color: #ffffff;
+    border: 1px solid #dcd5e0;
+    alternate-background-color: #f9f7fa; /* 极淡的斑马纹 */
+    gridline-color: #eee;
+    color: #333333;
+    padding: 2px;
+}
+QListWidget::item, QTableWidget::item {
+    padding: 4px;
+    border: none;
+}
+QListWidget::item:hover, QTableWidget::item:hover {
+    background-color: #fcebf5;       /* 悬停淡粉 */
+}
+QListWidget::item:selected, QTableWidget::item:selected {
+    background-color: #d066a8;
+    color: #ffffff;
+}
+
+/* 表头 (HeaderView) */
+QHeaderView::section {
+    background-color: #f2f0f5;       /* 浅灰紫表头 */
+    border: none;
+    border-right: 1px solid #e0dce0;
+    border-bottom: 1px solid #e0dce0;
+    color: #665a70;
+    padding: 4px;
+    font-weight: bold;
+}
+QTableCornerButton::section {
+    background-color: #f2f0f5;
+    border: 1px solid #e0dce0;
+}

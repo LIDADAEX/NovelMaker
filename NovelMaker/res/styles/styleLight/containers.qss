@@ -1,0 +1,78 @@
+/* --- 分组框 (QGroupBox) --- */
+QGroupBox {
+    border: 1px solid #dcd5e0;
+    border-radius: 6px;
+    margin-top: 24px;
+    padding-top: 10px;
+}
+QGroupBox::title {
+    subcontrol-origin: margin;
+    subcontrol-position: top left;
+    left: 10px;
+    top: 2px;
+    color: #b04085;                  /* 标题用深粉色，比浅粉更易读 */
+    font-weight: bold;
+    background-color: #f7f5f9;       /* 遮挡边框，要和全局背景一致 */
+    padding: 0 5px;
+}
+
+/* --- 选项卡 (QTabWidget) --- */
+QTabWidget::pane {
+    border: 1px solid #c0b8c5;
+    background-color: #ffffff;
+    border-radius: 4px;
+    /* 修正与 TabBar 的连接处视觉 */
+    top: -1px; 
+}
+
+QTabBar::tab {
+    background-color: #f2f0f5;       /* 未选中时：浅灰紫背景 */
+    border: 1px solid #dcd5e0;
+    border-bottom: 1px solid #c0b8c5;
+    color: #665a70;
+    padding: 6px 12px;
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+    margin-right: 2px;
+    min-width: 60px;
+}
+
+QTabBar::tab:hover {
+    background-color: #fdf0f7;       /* 悬停微微泛粉 */
+    color: #d066a8;
+}
+
+QTabBar::tab:selected {
+    background-color: #ffffff;       /* 选中变白，与 Pane 融为一体 */
+    border-bottom: 1px solid #ffffff;/* 去掉底部边框，实现连接效果 */
+    border-top: 2px solid #d066a8;   /* 顶部粉色亮条强调 */
+    color: #333333;
+    font-weight: bold;
+}
+
+/* --- 工具箱 (QToolBox) --- */
+QToolBox {
+    background-color: #f7f5f9;
+    border: 1px solid #dcd5e0;
+}
+
+QToolBox::tab {
+    background-color: #ffffff;
+    border: 1px solid #dcd5e0;
+    border-radius: 4px;
+    color: #4a4050;
+    padding-left: 6px; 
+}
+
+QToolBox::tab:hover {
+    background-color: #fdf0f7;
+    border-color: #d066a8;
+    color: #d066a8;
+}
+
+QToolBox::tab:selected {
+    background-color: #f0e6f0;       /* 选中时稍微加深 */
+    color: #b04085;
+    font-weight: bold;
+    border-color: #b04085;
+}

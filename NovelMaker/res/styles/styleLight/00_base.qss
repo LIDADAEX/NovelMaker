@@ -1,0 +1,25 @@
+/* --- 全局基础 (Global) --- */
+QWidget {
+    background-color: #f7f5f9;       /* 极淡的紫灰色，像大理石 */
+    color: #333333;                  /* 深灰色字体，比纯黑更柔和 */
+    font-family: "Segoe UI", "Microsoft YaHei", sans-serif;
+    font-size: 10pt;
+    selection-background-color: #d066a8; /* 经典的莉莉丝粉 */
+    selection-color: #ffffff;
+    outline: none;
+}
+
+/* --- 框架与分割线 (QFrame) --- */
+/* 这里主要针对 HLine 和 VLine */
+QFrame[frameShape="4"], /* HLine */
+QFrame[frameShape="5"]  /* VLine */
+{
+    color: #dcd5e0;                  /* 线条颜色 */
+    background-color: transparent;
+    border: none;
+}
+
+/* 通用 Frame 容器 */
+QFrame {
+    border: none;                    /* 默认无边框，防止嵌套混乱 */
+}

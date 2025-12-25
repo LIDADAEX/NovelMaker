@@ -19,8 +19,8 @@ MainWindow::MainWindow(QWidget *parent)
     ui->stackedWidget->addWidget(m_mainWidget);
     ui->stackedWidget->addWidget(m_settingWidget);
 
-    // m_qssManager = new CommonUI::QssManager("./styles/styleDark");
-    // m_qssManager->dynamicStyleMergeLordStart();
+    m_qssManager = new CommonUI::QssManager("./res/styles/styleDark");
+    m_qssManager->dynamicStyleMergeLordStart();
 }
 
 MainWindow::~MainWindow()
