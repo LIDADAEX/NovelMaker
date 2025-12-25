@@ -13,7 +13,13 @@ public:
     explicit QssPreProcessor(QString styleFilePath, QObject *parent = nullptr);
     explicit QssPreProcessor(QDir stylePath, QObject *parent = nullptr);
 
-    void startPreProcess(void);
+    void pathInit(void);
+
+    void setStyleFilePath(QString styleFilePath);
+    void setStylePath(QDir stylePath);
+
+    void startFilePreProcess(QMap<QString, QString> defineKey);
+    void startDirPreProcess(QMap<QString, QString> defineKey);
 
 private:
     QString m_styleFilePath;
