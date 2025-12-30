@@ -3,15 +3,21 @@
 
 QssPreProcessor::QssPreProcessor(QObject *parent)
     : QObject{parent}
-{}
+{
+    pathInit();
+}
 
 QssPreProcessor::QssPreProcessor(QString styleFilePath, QObject *parent)
     : m_styleFilePath(styleFilePath), QObject{parent}
-{}
+{
+    pathInit();
+}
 
 QssPreProcessor::QssPreProcessor(QDir stylePath, QObject *parent)
     : m_stylePath(stylePath), QObject{parent}
-{}
+{
+    pathInit();
+}
 
 void QssPreProcessor::pathInit()
 {
@@ -35,9 +41,19 @@ void QssPreProcessor::startFilePreProcess(QMap<QString, QString> defineKey)
 
     if(!styleFile.open(QIODeviceBase::ReadOnly))
     {
-        qWarning() << "预处理文件，m_styleFilePath，无法打开！";
+        qWarning() << "预处理文件 " + m_styleFilePath + " 无法打开！";
         return;
     }
+
+    if(!styleFile.copy(m_styleFilePath.removeLast()))
+    {
+        qWarning() << "预处理文件 " + m_styleFilePath + " 无法完成复制，请检查！";
+        return;
+    }
+
+    styleFile.close();
+
+    styleFile.setFileName(m_styleFilePath);
 
     QString fileContent = styleFile.readAll();
 
@@ -48,7 +64,7 @@ void QssPreProcessor::startFilePreProcess(QMap<QString, QString> defineKey)
 
     if(!styleFile.open(QIODeviceBase::WriteOnly))
     {
-        qWarning() << "预处理文件，m_styleFilePath，无法写入！";
+        qWarning() << "预处理文件" + m_styleFilePath +  " 无法写入！";
         return;
     }
 
@@ -56,11 +72,24 @@ void QssPreProcessor::startFilePreProcess(QMap<QString, QString> defineKey)
 
     styleFile.close();
 
-    qInfo() << "m_styleFilePath 预处理完毕！";
+    qInfo() << m_styleFilePath + " 预处理完毕！";
 
 }
 
 void QssPreProcessor::startDirPreProcess(QMap<QString, QString> defineKey)
 {
-    m_stylePath.entryList();
+    if(!m_stylePath.exists())
+    {
+        qWarning() << "预处理文件路径不存在，请检查！";
+        return;
+    }
+
+    QStringList fileList = m_stylePath.entryList();
+
+    foreach (auto i, fileList) {
+        setStyleFilePath(m_stylePath.filePath(i));
+        startFilePreProcess(defineKey);
+    }
+
+    qDebug() << m_stylePath.path() + " 预处理完成！";
 }
