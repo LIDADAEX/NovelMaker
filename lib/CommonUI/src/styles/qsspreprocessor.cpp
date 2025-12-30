@@ -39,21 +39,30 @@ void QssPreProcessor::startFilePreProcess(QMap<QString, QString> defineKey)
 {
     QFile styleFile(m_styleFilePath);
 
-    if(!styleFile.open(QIODeviceBase::ReadOnly))
+    QFile styleFileDep(m_styleFilePath.removeLast());
+
+    if(styleFileDep.exists())
     {
-        qWarning() << "预处理文件 " + m_styleFilePath + " 无法打开！";
-        return;
+        if(!styleFileDep.remove())
+        {
+            qWarning() << "预处理文件" + m_styleFilePath + "无法删除！请检查！";
+            return;
+        }
     }
 
-    if(!styleFile.copy(m_styleFilePath.removeLast()))
+    if(!styleFile.copy(m_styleFilePath))
     {
         qWarning() << "预处理文件 " + m_styleFilePath + " 无法完成复制，请检查！";
         return;
     }
 
-    styleFile.close();
-
     styleFile.setFileName(m_styleFilePath);
+
+    if(!styleFile.open(QIODeviceBase::ReadOnly))
+    {
+        qWarning() << "预处理文件副本 " + m_styleFilePath + " 无法打开！";
+        return;
+    }
 
     QString fileContent = styleFile.readAll();
 
@@ -61,6 +70,8 @@ void QssPreProcessor::startFilePreProcess(QMap<QString, QString> defineKey)
     {
         fileContent.replace(i.key(),i.value());
     }
+
+    styleFile.close();
 
     if(!styleFile.open(QIODeviceBase::WriteOnly))
     {

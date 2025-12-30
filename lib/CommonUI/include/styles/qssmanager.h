@@ -3,6 +3,7 @@
 
 #include "qsslorder.h"
 #include "qssmerger.h"
+#include "qsspreprocessor.h"
 
 #include <QDir>
 #include <QObject>
@@ -19,11 +20,14 @@ namespace CommonUI {
         void dynamicStyleMergeLordStart(void);
         void dynamicStyleMergeLordStop(void);
 
+        void startPreProcess(QMap<QString, QString> defineKey);
+
         void setStyleDir(QDir styleDir, QString outputFileName = QString("style"));
 
     private:
         QssLorder* m_lorder;
         QssMerger* m_merger;
+        QssPreProcessor* m_preProcessor;
 
     signals:
     };

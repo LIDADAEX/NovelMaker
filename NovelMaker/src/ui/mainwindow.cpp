@@ -20,6 +20,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->stackedWidget->addWidget(m_settingWidget);
 
     m_qssManager = new CommonUI::QssManager(QDir("./res/styles/styleDark"));
+    m_qssManager->startPreProcess(preProcessDefineKeyInit());
     m_qssManager->dynamicStyleMergeLordStart();
 }
 
@@ -38,4 +39,12 @@ void MainWindow::changeWidget(widget targetWidget)
         m_lastWidget = m_presentWidget;
         m_presentWidget = targetWidget;
     }
+}
+
+QMap<QString, QString> MainWindow::preProcessDefineKeyInit()
+{
+    QMap<QString, QString> defineKey;
+    defineKey.insert("QWidgetFont-family", "Segoe UI");
+    defineKey.insert("@QWidgetFont-size", "10pt");
+    return defineKey;
 }

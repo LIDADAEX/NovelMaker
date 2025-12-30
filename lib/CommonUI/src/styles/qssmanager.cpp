@@ -5,7 +5,10 @@ CommonUI::QssManager::QssManager(QObject *parent)
 {}
 
 CommonUI::QssManager::QssManager(QDir styleDir, QString outputFileName, QObject *parent)
-    :m_lorder(new QssLorder(styleDir.absolutePath() + '/' +outputFileName + ".qss",parent)), m_merger(new QssMerger(styleDir, outputFileName, parent)),  QObject{parent}
+    :m_lorder(new QssLorder(styleDir.absolutePath() + '/' + outputFileName + ".qss", parent)),
+    m_merger(new QssMerger(styleDir, outputFileName, parent)),
+    m_preProcessor(new QssPreProcessor(styleDir, parent)),
+    QObject{parent}
 {
     connect(m_merger, &QssMerger::styleMerged, m_lorder, &QssLorder::lordStyle);
 }
@@ -37,6 +40,11 @@ void CommonUI::QssManager::dynamicStyleMergeLordStop()
     m_merger->outputMergeFileStop();
 }
 
+void CommonUI::QssManager::startPreProcess(QMap<QString, QString> defineKey)
+{
+    m_preProcessor->startDirPreProcess(defineKey);
+}
+
 void CommonUI::QssManager::setStyleDir(QDir styleDir, QString outputFileName)
 {
     if(m_lorder != nullptr)
@@ -51,4 +59,5 @@ void CommonUI::QssManager::setStyleDir(QDir styleDir, QString outputFileName)
 
     m_lorder = new QssLorder(styleDir.absolutePath() + '/' +outputFileName + ".qss", this->parent());
     m_merger = new QssMerger(styleDir.absolutePath(), outputFileName, this->parent());
+    m_preProcessor = new QssPreProcessor(styleDir.absolutePath(), this->parent());
 }

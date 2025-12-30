@@ -25,6 +25,9 @@ private slots:
     void changeWidget(widget targetWidget);
 
 private:
+    QMap<QString, QString> preProcessDefineKeyInit(void);
+
+private:
     Ui::MainWindow *ui;
 
     widget m_presentWidget;

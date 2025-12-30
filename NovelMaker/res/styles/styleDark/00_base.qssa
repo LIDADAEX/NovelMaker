@@ -2,8 +2,8 @@
 QWidget {
     background-color: #1e1b24;       /* 深渊暗紫底色 */
     color: #cccccc;                  /* 主字体颜色 */
-    font-family: "Segoe UI", "Microsoft YaHei", sans-serif;
-    font-size: 10pt;
+    font-family: @QWidgetFont-family, "Segoe UI", "Microsoft YaHei", sans-serif;
+    font-size: @QWidgetFont-size;
     selection-background-color: #a0467f; 
     selection-color: #ffffff;
     outline: none;
