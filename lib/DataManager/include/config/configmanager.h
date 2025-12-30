@@ -24,7 +24,7 @@ public:
     QJsonDocument getConfigData(void);
     void setConfigData(QJsonDocument configData);
 
-private:
+    static void creatConfig(QString configFilePath, QJsonDocument configInit);
 
 private:
 
