@@ -14,21 +14,43 @@ Logger &Logger::instance()
 
 void Logger::initialize(const QString &logDir, LogLevel consoleLevel, LogLevel fileLevel)
 {
-    if(m_isInitialize) return;
-
-    QDir dir(logDir);
-
-    if(!dir.exists())
-        if(!dir.mkpath("."))
-        {
-            writeToConsole(LogLevel::Fatal, "致命错误！日志文件夹创建失败！");
-            qApp->quit();
-        }
+    if(m_isInitialize)
+    {
+        if(m_consoleLevel <= LogLevel::Info)
+            writeToConsole(LogLevel::Info, "检测到日志重复初始化，已取消");
+        return;
+    }
 
     m_logDirectory = logDir;
     m_consoleLevel = consoleLevel;
     m_fileLevel = fileLevel;
     m_maxFileSize = 1024 * 1024; //1MB
+
+    if(m_consoleLevel == LogLevel::Debug)
+        writeToConsole(LogLevel::Debug, "正在检查日志文件夹");
+
+    QDir dir(logDir);
+
+    if(!dir.exists())
+    {
+        if(m_consoleLevel == LogLevel::Debug)
+            writeToConsole(LogLevel::Debug, "未找到日志文件夹，正在创建");
+
+        if(!dir.mkpath("."))
+        {
+            writeToConsole(LogLevel::Fatal, "致命错误！日志文件夹创建失败");
+            qApp->quit();
+        }
+
+        if(m_consoleLevel == LogLevel::Debug)
+            writeToConsole(LogLevel::Debug, "日志文件夹创建成功");
+    }
+
+    if(m_consoleLevel == LogLevel::Debug)
+    writeToConsole(LogLevel::Debug, "日志文件夹检查完毕");
+
+    if(m_consoleLevel == LogLevel::Debug)
+        writeToConsole(LogLevel::Debug, "正在创建新日志文件");
 
     QString currentDateTime = QDateTime::currentDateTime().toString("yyyy_MM_ddThh_mm_ss");
 
@@ -38,9 +60,12 @@ void Logger::initialize(const QString &logDir, LogLevel consoleLevel, LogLevel f
 
     if(!m_logFile.open(QIODeviceBase::WriteOnly))
     {
-        writeToConsole(LogLevel::Fatal, "致命错误！日志文件初始化失败！");
+        writeToConsole(LogLevel::Fatal, "致命错误！日志文件初始化失败");
         qApp->quit();
     }
+
+    if(m_consoleLevel == LogLevel::Debug)
+        writeToConsole(LogLevel::Debug, "日志文件创建成功");
 
     m_logFile.close();
 
@@ -53,7 +78,7 @@ void Logger::log(LogLevel level, const QString& message, const char *file, int l
 {
     if(!m_isInitialize) return;
 
-    if(level < m_consoleLevel && level < m_fileLevel) return;
+    if((qint16(level) < qint16(m_consoleLevel)) && (qint16(level) < qint16(m_fileLevel))) return;
 
     QString formattedMsg;
     QString fileString(file);
@@ -63,17 +88,24 @@ void Logger::log(LogLevel level, const QString& message, const char *file, int l
                    + '[' + function + ']'
                    + '[' + message + ']';
 
-    if(level >= m_consoleLevel)
+    if(qint16(level) >= qint16(m_consoleLevel))
     {
         writeToConsole(level, formattedMsg);
     }
 
-    if(level >= m_fileLevel)
+    if(qint16(level) >= qint16(m_fileLevel))
     {
         writeToFile(level, formattedMsg);
     }
 
     rotateLogFileIfNeeded();
+
+    if(level == LogLevel::Fatal)
+    {
+        QApplication::closeAllWindows();
+        qApp->quit();
+        std::exit(EXIT_FAILURE);
+    }
 }
 
 void Logger::setLogLevel(LogLevel level, bool forConsole)
@@ -138,7 +170,7 @@ void Logger::writeToConsole(LogLevel level, const QString &formattedMsg)
         stream << "\033[37m" << "[DEBUG]" << formattedMsg << "\033[0m" << Qt::endl;  // 灰色
         break;
     case LogLevel::Info:
-        stream << formattedMsg << Qt::endl;
+        stream << "[INFO]" << formattedMsg << Qt::endl;
         break;
     case LogLevel::Warning:
         stream << "\033[33m" << "[WARNING]" << formattedMsg << "\033[0m" << Qt::endl; //黄色
@@ -159,7 +191,7 @@ void Logger::writeToConsole(LogLevel level, const QString &formattedMsg)
 
 void Logger::writeToFile(LogLevel level, const QString &formattedMsg)
 {
-    if(!m_logFile.open(QIODeviceBase::WriteOnly))
+    if(!m_logFile.open(QIODeviceBase::WriteOnly | QIODeviceBase::Append))
     {
         LOG_WARNING("日志正在被占用");
         return;
@@ -168,22 +200,22 @@ void Logger::writeToFile(LogLevel level, const QString &formattedMsg)
     switch(level)
     {
     case LogLevel::Debug:
-        m_logFile.write(QString("[DEBUG]" + formattedMsg).toUtf8());
+        m_logFile.write(QString("[DEBUG]" + formattedMsg).toUtf8() + '\n');
         break;
     case LogLevel::Info:
-        m_logFile.write(QString("[INFO]" + formattedMsg).toUtf8());
+        m_logFile.write(QString("[INFO]" + formattedMsg).toUtf8() + '\n');
         break;
     case LogLevel::Warning:
-        m_logFile.write(QString("[WARNING]" + formattedMsg).toUtf8());
+        m_logFile.write(QString("[WARNING]" + formattedMsg).toUtf8() + '\n');
         break;
     case LogLevel::Error:
-        m_logFile.write(QString("[ERROR]" + formattedMsg).toUtf8());
+        m_logFile.write(QString("[ERROR]" + formattedMsg).toUtf8() + '\n');
         break;
     case LogLevel::Critical:
-        m_logFile.write(QString("[CRITICAL]" + formattedMsg).toUtf8());
+        m_logFile.write(QString("[CRITICAL]" + formattedMsg).toUtf8() + '\n');
         break;
     case LogLevel::Fatal:
-        m_logFile.write(QString("[FATAL]" + formattedMsg).toUtf8());
+        m_logFile.write(QString("[FATAL]" + formattedMsg).toUtf8() + '\n');
         break;
     }
 

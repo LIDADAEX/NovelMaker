@@ -4,8 +4,8 @@
 #include <QFile>
 #include <QObject>
 
-enum class LogLevel {
-    Debug,      // 调试信息
+enum class LogLevel : qint16 {
+    Debug = 0,      // 调试信息
     Info,       // 普通信息
     Warning,    // 警告
     Error,      // 错误
@@ -33,6 +33,10 @@ public:
     #define LOG_WARNING(msg)  Logger::instance().log(LogLevel::Warning, msg, \
                                                     __FILE__, __LINE__, __FUNCTION__)
     #define LOG_ERROR(msg)    Logger::instance().log(LogLevel::Error, msg, \
+                                                    __FILE__, __LINE__, __FUNCTION__)
+    #define LOG_CRITICAL(msg)    Logger::instance().log(LogLevel::Critical, msg, \
+                                                    __FILE__, __LINE__, __FUNCTION__)
+    #define LOG_FATAL(msg)    Logger::instance().log(LogLevel::Fatal, msg, \
                                                     __FILE__, __LINE__, __FUNCTION__)
 
     static void installQtMessageHandler();
@@ -65,8 +69,6 @@ private:
     LogLevel m_fileLevel;
     qint64 m_maxFileSize;
     QString m_logDirectory;
-
-
 };
 
 #endif // LOGGER_H

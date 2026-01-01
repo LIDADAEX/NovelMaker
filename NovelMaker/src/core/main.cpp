@@ -9,7 +9,7 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
 
     Logger::installQtMessageHandler();
-    Logger::instance().initialize("./res/logoutput");
+    Logger::instance().initialize("./res/logoutput", LogLevel::Debug);
 
     MainWindow w;
     w.show();
