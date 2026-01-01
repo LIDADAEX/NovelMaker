@@ -9,7 +9,4 @@ set(CMAKE_AUTOMOC ON)
 set(CMAKE_AUTORCC ON)
 set(CMAKE_AUTOUIC ON)
 
-add_subdirectory(lib/CommonUI)
-add_subdirectory(lib/DataManager)
-
 add_subdirectory(NovelMaker)

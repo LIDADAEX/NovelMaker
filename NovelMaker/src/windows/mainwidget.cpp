@@ -6,8 +6,6 @@ MainWidget::MainWidget(QWidget *parent)
     , ui(new Ui::MainWidget)
 {
     ui->setupUi(this);
-
-    connect(ui->pushButton_ET_EditorSetting, &QPushButton::clicked, this, [=]{emit requireChangeWidget(widget::settingWidget);});
 }
 
 MainWidget::~MainWidget()

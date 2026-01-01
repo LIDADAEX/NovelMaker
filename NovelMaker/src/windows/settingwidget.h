@@ -1,7 +1,7 @@
 #ifndef SETTINGWIDGET_H
 #define SETTINGWIDGET_H
 
-#include "src/ui/enumlistwidget.h"
+#include "src/windows/enumlistwidget.h"
 #include <QWidget>
 
 namespace Ui {

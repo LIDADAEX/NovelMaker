@@ -6,9 +6,6 @@ SettingWidget::SettingWidget(QWidget *parent)
     , ui(new Ui::SettingWidget)
 {
     ui->setupUi(this);
-
-    connect(ui->pushButton_Cancel, &QPushButton::clicked, this, [=]{emit requireChangeWidget(widget::mainWidget);});
-
 }
 
 SettingWidget::~SettingWidget()

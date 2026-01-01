@@ -3,7 +3,6 @@
 
 #include <QMainWindow>
 
-#include <styles/qssmanager.h>
 #include "mainwidget.h"
 #include "settingwidget.h"
 
@@ -32,8 +31,6 @@ private:
 
     widget m_presentWidget;
     widget m_lastWidget;
-
-    CommonUI::QssManager* m_qssManager;
 
     MainWidget* m_mainWidget;
     SettingWidget* m_settingWidget;
