@@ -48,13 +48,47 @@
           <layout class="QVBoxLayout" name="verticalLayout_2">
            <item>
             <layout class="QGridLayout" name="GL_ProjectTools">
-             <item row="0" column="0">
-              <widget class="QLabel" name="label_PT_World_Tip">
+             <item row="4" column="1">
+              <widget class="QLabel" name="label_PT_Random_Tip">
                <property name="text">
-                <string>世界观</string>
+                <string>随机灵感生成器</string>
                </property>
                <property name="alignment">
                 <set>Qt::AlignmentFlag::AlignCenter</set>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="0">
+              <widget class="QLabel" name="label_PT_TimeLine_Tip">
+               <property name="text">
+                <string>剧情/时间线</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignmentFlag::AlignCenter</set>
+               </property>
+              </widget>
+             </item>
+             <item row="2" column="1">
+              <widget class="QLabel" name="label_PT_CharacterRelationship_Tip">
+               <property name="text">
+                <string>人物关系网</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignmentFlag::AlignCenter</set>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="1">
+              <widget class="QPushButton" name="pushButton_PT_CharacterRelationship">
+               <property name="text">
+                <string>跳转到人物关系网设定界面</string>
+               </property>
+              </widget>
+             </item>
+             <item row="1" column="0">
+              <widget class="QPushButton" name="pushButton_PT_Word">
+               <property name="text">
+                <string>跳转到世界观设定页面</string>
                </property>
               </widget>
              </item>
@@ -68,10 +102,30 @@
                </property>
               </widget>
              </item>
-             <item row="1" column="0">
-              <widget class="QPushButton" name="pushButton_PT_Word">
+             <item row="5" column="1">
+              <widget class="QPushButton" name="pushButton_PT_Random">
                <property name="text">
-                <string>跳转到世界观设定页面</string>
+                <string>跳转到随即灵感生成器</string>
+               </property>
+              </widget>
+             </item>
+             <item row="4" column="0">
+              <widget class="QLabel" name="label_PT_Item_Tip">
+               <property name="text">
+                <string>物品与百科</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignmentFlag::AlignCenter</set>
+               </property>
+              </widget>
+             </item>
+             <item row="0" column="0">
+              <widget class="QLabel" name="label_PT_World_Tip">
+               <property name="text">
+                <string>世界观</string>
+               </property>
+               <property name="alignment">
+                <set>Qt::AlignmentFlag::AlignCenter</set>
                </property>
               </widget>
              </item>
@@ -79,6 +133,20 @@
               <widget class="QPushButton" name="pushButton_PT_Characters">
                <property name="text">
                 <string>跳转到人物设定页面</string>
+               </property>
+              </widget>
+             </item>
+             <item row="5" column="0">
+              <widget class="QPushButton" name="pushButton_PT_Item">
+               <property name="text">
+                <string>跳转到物品与百科设定页面</string>
+               </property>
+              </widget>
+             </item>
+             <item row="3" column="0">
+              <widget class="QPushButton" name="pushButton_PT_TimeLine">
+               <property name="text">
+                <string>跳转到剧情/时间线设定页面</string>
                </property>
               </widget>
              </item>

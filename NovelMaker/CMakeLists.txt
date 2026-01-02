@@ -36,10 +36,14 @@ set(PROJECT_SOURCES
 find_package(Qt6 REQUIRED COMPONENTS Core)
 find_package(Qt6 REQUIRED COMPONENTS Core)
 find_package(Qt6 REQUIRED COMPONENTS Core)
+find_package(Qt6 REQUIRED COMPONENTS Core)
 
 qt_add_executable(NovelMaker
     MANUAL_FINALIZATION
     ${PROJECT_SOURCES}
+    src/utilitis/configutilities.h src/utilitis/configutilities.cpp
+    src/windows/worldwidget.h src/windows/worldwidget.cpp src/windows/worldwidget.ui
+    src/windows/characterwidget.h src/windows/characterwidget.cpp src/windows/characterwidget.ui
 
 
 
@@ -49,6 +53,7 @@ target_include_directories(NovelMaker PRIVATE ${PROJECT_SOURCE_DIR})
 
 target_link_libraries(NovelMaker PRIVATE
     Qt${QT_VERSION_MAJOR}::Widgets)
+target_link_libraries(NovelMaker PRIVATE Qt6::Core)
 target_link_libraries(NovelMaker PRIVATE Qt6::Core)
 target_link_libraries(NovelMaker PRIVATE Qt6::Core)
 
