@@ -4,22 +4,44 @@
 #include <QDir>
 
 [[nodiscard("别忘记检查文件是否打开")]]
-bool FileUtil::fileOpen(QFile *file, QIODeviceBase::OpenModeFlag openMode)
+bool FileUtil::fileOpen(QFile& file, QIODeviceBase::OpenModeFlag openMode)
 {
-    if(!file->open(openMode))
+    if(!file.open(openMode))
     {
-        LOG_WARNING(file->fileName() + "文件打开失败");
+        LOG_WARNING(file.fileName() + "文件打开失败");
         return false;
     }
 
-    LOG_DEBUG(file->fileName() + "文件打开成功");
+    LOG_DEBUG(file.fileName() + "文件打开成功");
 
-    return true ;
+    return true;
 }
 
-bool FileUtil::isFileExist(QFile file)
+bool FileUtil::isFileExist(QFile& file)
 {
     return file.exists();
+}
+
+bool FileUtil::removeFile(QFile &file)
+{
+    if(file.exists())
+    {
+        if(!file.remove())
+        {
+            LOG_WARNING("文件删除失败");
+            return false;
+        }
+        else
+        {
+            LOG_INFO("文件删除成功");
+            return true;
+        }
+    }
+    else
+    {
+        LOG_INFO("文件不存在");
+        return true;
+    }
 }
 
 [[nodiscard("别忘记检查文件夹是否创建")]]

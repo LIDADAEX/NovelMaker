@@ -1,9 +1,12 @@
 #ifndef CONFIGDEFINE_H
 #define CONFIGDEFINE_H
 
-#define CONFIG_SYSTEM_PATH "./res/config"
+#define CONFIG_DIR "./res/config"
+#define STYLE_DIR "./res/style"
 
 #define CONFIG_SYSTEM_FILENAME "system.json"
+#define CONFIG_USER_FILENAME "user.json"
+#define CONFIG_WORKSPACE_FILENAME "workspace.json"
 
 //系统配置
 #define CONFIG_SYSTEM_APPLICATION_NAME "NovelMaker"
@@ -12,5 +15,7 @@
 #define CONFIG_SYSTEM_APPLICATION_BUILDNUMBER 000001
 #define CONFIG_SYSTEM_APPLICATION_EDITOR "lidada"
 #define CONFIG_SYSTEM_APPLICATION_WEBSITE "https://github.com/LIDADAEX/NovelMaker"
+
+
 
 #endif // CONFIGDEFINE_H

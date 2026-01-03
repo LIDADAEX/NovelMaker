@@ -12,12 +12,12 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 find_package(QT NAMES Qt6 Qt5 REQUIRED COMPONENTS Widgets)
 find_package(Qt${QT_VERSION_MAJOR} REQUIRED COMPONENTS Widgets)
 
-set(CORE
+set(SRC_CORE
     src/core/main.cpp
     src/core/logger.h src/core/logger.cpp
 )
 
-set(WINDOWS
+set(SRC_WINDOWS
     src/windows/enumlistwidget.h
     src/windows/mainwindow.h src/windows/mainwindow.cpp src/windows/mainwindow.ui
     src/windows/mainwidget.h src/windows/mainwidget.cpp src/windows/mainwidget.ui
@@ -26,21 +26,38 @@ set(WINDOWS
     src/windows/characterwidget.h src/windows/characterwidget.cpp src/windows/characterwidget.ui
 )
 
-set(UTILITIES
+set(SRC_UTILITIES
+    src/utilitis/config/configdefine.h
     src/utilitis/config/configsystem.h src/utilitis/config/configsystem.cpp
     src/utilitis/config/configproject.h src/utilitis/config/configproject.cpp
     src/utilitis/config/configuser.h src/utilitis/config/configuser.cpp
     src/utilitis/config/configworkspace.h src/utilitis/config/configworkspace.cpp
-    src/utilitis/file/configmanager.h src/utilitis/file/configmanager.cpp
+    src/utilitis/config/configmanager.h src/utilitis/config/configmanager.cpp
+    src/utilitis/file/fileutil.h src/utilitis/file/fileutil.cpp
+    src/utilitis/file/jsonfileutil.h src/utilitis/file/jsonfileutil.cpp
 )
 
 set(SRC
-    ${CORE}
-    ${WINDOWS}
+    ${SRC_CORE}
+    ${SRC_WINDOWS}
+    ${SRC_UTILITIES}
+)
+
+set(RES_STYLE
+    res/style/styledefine.h
+)
+
+set(RES_CONFIG
+)
+
+set(RES
+    ${RES_STYLE}
+    ${RES_CONFIG}
 )
 
 set(PROJECT_SOURCES
     ${SRC}
+    ${RES}
 )
 
 find_package(Qt6 REQUIRED COMPONENTS Core)
@@ -51,7 +68,9 @@ find_package(Qt6 REQUIRED COMPONENTS Core)
 qt_add_executable(NovelMaker
     MANUAL_FINALIZATION
     ${PROJECT_SOURCES}
-    src/utilitis/config/configdefine.h
+
+
+
 )
 
 target_include_directories(NovelMaker PRIVATE ${PROJECT_SOURCE_DIR})
