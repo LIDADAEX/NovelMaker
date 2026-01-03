@@ -22,6 +22,16 @@ set(WINDOWS
     src/windows/mainwindow.h src/windows/mainwindow.cpp src/windows/mainwindow.ui
     src/windows/mainwidget.h src/windows/mainwidget.cpp src/windows/mainwidget.ui
     src/windows/settingwidget.h src/windows/settingwidget.cpp src/windows/settingwidget.ui
+    src/windows/worldwidget.h src/windows/worldwidget.cpp src/windows/worldwidget.ui
+    src/windows/characterwidget.h src/windows/characterwidget.cpp src/windows/characterwidget.ui
+)
+
+set(UTILITIES
+    src/utilitis/config/configsystem.h src/utilitis/config/configsystem.cpp
+    src/utilitis/config/configproject.h src/utilitis/config/configproject.cpp
+    src/utilitis/config/configuser.h src/utilitis/config/configuser.cpp
+    src/utilitis/config/configworkspace.h src/utilitis/config/configworkspace.cpp
+    src/utilitis/file/configmanager.h src/utilitis/file/configmanager.cpp
 )
 
 set(SRC
@@ -41,16 +51,7 @@ find_package(Qt6 REQUIRED COMPONENTS Core)
 qt_add_executable(NovelMaker
     MANUAL_FINALIZATION
     ${PROJECT_SOURCES}
-    src/utilitis/configmanager.h src/utilitis/configmanager.cpp
-    src/windows/worldwidget.h src/windows/worldwidget.cpp src/windows/worldwidget.ui
-    src/windows/characterwidget.h src/windows/characterwidget.cpp src/windows/characterwidget.ui
-    src/utilitis/configsystem.h src/utilitis/configsystem.cpp
-    src/utilitis/configproject.h src/utilitis/configproject.cpp
-    src/utilitis/configuser.h src/utilitis/configuser.cpp
-    src/utilitis/configworkspace.h src/utilitis/configworkspace.cpp
-
-
-
+    src/utilitis/config/configdefine.h
 )
 
 target_include_directories(NovelMaker PRIVATE ${PROJECT_SOURCE_DIR})
