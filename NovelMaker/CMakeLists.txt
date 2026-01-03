@@ -41,9 +41,13 @@ find_package(Qt6 REQUIRED COMPONENTS Core)
 qt_add_executable(NovelMaker
     MANUAL_FINALIZATION
     ${PROJECT_SOURCES}
-    src/utilitis/configutilities.h src/utilitis/configutilities.cpp
+    src/utilitis/configmanager.h src/utilitis/configmanager.cpp
     src/windows/worldwidget.h src/windows/worldwidget.cpp src/windows/worldwidget.ui
     src/windows/characterwidget.h src/windows/characterwidget.cpp src/windows/characterwidget.ui
+    src/utilitis/configsystem.h src/utilitis/configsystem.cpp
+    src/utilitis/configproject.h src/utilitis/configproject.cpp
+    src/utilitis/configuser.h src/utilitis/configuser.cpp
+    src/utilitis/configworkspace.h src/utilitis/configworkspace.cpp
 
 
 

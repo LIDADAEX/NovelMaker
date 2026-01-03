@@ -1,9 +1,10 @@
-#include "fileutilities.h"
+#include "fileutil.h"
 #include "src/core/logger.h"
 
 #include <QDir>
 
-bool FileUtilities::fileOpen(QFile *file, QIODeviceBase::OpenModeFlag openMode)
+[[nodiscard("别忘记检查文件是否打开")]]
+bool FileUtil::fileOpen(QFile *file, QIODeviceBase::OpenModeFlag openMode)
 {
     if(!file->open(openMode))
     {
@@ -12,15 +13,17 @@ bool FileUtilities::fileOpen(QFile *file, QIODeviceBase::OpenModeFlag openMode)
     }
 
     LOG_DEBUG(file->fileName() + "文件打开成功");
-    return true;
+
+    return true ;
 }
 
-bool FileUtilities::isFileExist(QFile file)
+bool FileUtil::isFileExist(QFile file)
 {
     return file.exists();
 }
 
-bool FileUtilities::dirCreat(QString DirPath)
+[[nodiscard("别忘记检查文件夹是否创建")]]
+bool FileUtil::dirCreat(QString DirPath)
 {
     if(!QDir().mkpath(DirPath))
     {

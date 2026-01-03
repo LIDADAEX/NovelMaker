@@ -1,14 +1,17 @@
-#ifndef FILEUTILITIES_H
-#define FILEUTILITIES_H
+#ifndef FILEUTIL_H
+#define FILEUTIL_H
 
 #include <QFile>
 
-class FileUtilities
+class FileUtil
 {
 public:
+    [[nodiscard("别忘记检查文件是否打开")]]
     static bool fileOpen(QFile* file, QIODeviceBase::OpenModeFlag openMode);
+
     static bool isFileExist(QFile file);
+    [[nodiscard("别忘记检查文件夹是否创建")]]
     static bool dirCreat(QString DirPath);
 };
 
-#endif // FILEUTILITIES_H
+#endif // FILEUTIL_H
