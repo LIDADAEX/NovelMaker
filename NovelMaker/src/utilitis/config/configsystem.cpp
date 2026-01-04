@@ -52,6 +52,7 @@ void ConfigSystem::initialize(const QString &configDir)
 
         m_paths.m_configDir = CONFIG_DIR;
         m_paths.m_styleDir = STYLE_DIR;
+        m_paths.m_logDir = LOG_DIR;
         m_paths.m_configSystemFileName = CONFIG_SYSTEM_FILENAME;
         m_paths.m_configUserFileName = CONFIG_USER_FILENAME;
         m_paths.m_configWorkspaceName = CONFIG_WORKSPACE_FILENAME;
@@ -98,6 +99,7 @@ bool ConfigSystem::saveFile()
     QJsonObject pathsObject;
     pathsObject.insert("configDir", m_paths.m_configDir);
     pathsObject.insert("styleDir", m_paths.m_styleDir);
+    pathsObject.insert("logDir", m_paths.m_logDir);
     pathsObject.insert("configSystemFileName", m_paths.m_configSystemFileName);
     pathsObject.insert("configUserFileName", m_paths.m_configUserFileName);
     pathsObject.insert("configWorkspaceName", m_paths.m_configWorkspaceName);
@@ -165,6 +167,7 @@ bool ConfigSystem::lordFile()
     }
 
     // 从Json文件中读取数据到类数据中开始
+    // 注意这里没有做判断词条不存在的东西，以后记得加上。
     QJsonObject systemObejct = jsonDocument.object();
 
     QJsonObject applicationObejct = systemObejct.value("application").toObject();
@@ -178,6 +181,7 @@ bool ConfigSystem::lordFile()
     QJsonObject pathsObject = systemObejct.value("paths").toObject();
     m_paths.m_configDir = pathsObject.value("configDir").toString();
     m_paths.m_styleDir = pathsObject.value("styleDir").toString();
+    m_paths.m_logDir = pathsObject.value("logDir").toString();
     m_paths.m_configSystemFileName = pathsObject.value("configSystemFileName").toString();
     m_paths.m_configUserFileName = pathsObject.value("configUserFileName").toString();
     m_paths.m_configWorkspaceName = pathsObject.value("configWorkspaceName").toString();

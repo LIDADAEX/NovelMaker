@@ -9,10 +9,13 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-    Logger::installQtMessageHandler();
-    Logger::instance().initialize("./res/logoutput", LogLevel::Debug);
-
     ConfigSystem::instance().initialize();
+    ConfigSystem::instance().lordFile();
+
+    Logger::installQtMessageHandler();
+    Logger::instance().initialize(ConfigSystem::instance().m_paths.m_logDir, LogLevel::Debug);
+
+
 
     MainWindow w;
     w.show();

@@ -3,6 +3,7 @@
 
 #define CONFIG_DIR "./res/config"
 #define STYLE_DIR "./res/style"
+#define LOG_DIR "./res/logoutput"
 
 #define CONFIG_SYSTEM_FILENAME "system.json"
 #define CONFIG_USER_FILENAME "user.json"

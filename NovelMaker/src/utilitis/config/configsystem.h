@@ -49,6 +49,7 @@ public:
     {
         QString m_configDir;
         QString m_styleDir;
+        QString m_logDir;
 
         QString m_configSystemFileName;
         QString m_configUserFileName;

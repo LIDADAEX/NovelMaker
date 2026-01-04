@@ -14,9 +14,10 @@ Logger &Logger::instance()
 
 void Logger::initialize(const QString &logDir, LogLevel consoleLevel, LogLevel fileLevel)
 {
+    //防止重复初始化，因为此时处于初始化环节所以只能够写入控制台
     if(m_isInitialize)
     {
-        if(m_consoleLevel <= LogLevel::Info)
+        if(consoleLevel <= LogLevel::Info)
             writeToConsole(LogLevel::Info, "检测到日志重复初始化，已取消");
         return;
     }
@@ -26,11 +27,11 @@ void Logger::initialize(const QString &logDir, LogLevel consoleLevel, LogLevel f
     m_fileLevel = fileLevel;
     m_maxFileSize = 1024 * 1024; //1MB
 
+    //检查日志目录是否存在，不存在则创建，开始
     if(m_consoleLevel == LogLevel::Debug)
         writeToConsole(LogLevel::Debug, "正在检查日志文件夹");
 
     QDir dir(logDir);
-
     if(!dir.exists())
     {
         if(m_consoleLevel == LogLevel::Debug)
@@ -45,10 +46,11 @@ void Logger::initialize(const QString &logDir, LogLevel consoleLevel, LogLevel f
         if(m_consoleLevel == LogLevel::Debug)
             writeToConsole(LogLevel::Debug, "日志文件夹创建成功");
     }
-
     if(m_consoleLevel == LogLevel::Debug)
     writeToConsole(LogLevel::Debug, "日志文件夹检查完毕");
+    //检查日志目录是否存在，结束
 
+    //创建新的日志文件，开始
     if(m_consoleLevel == LogLevel::Debug)
         writeToConsole(LogLevel::Debug, "正在创建新日志文件");
 
@@ -60,14 +62,15 @@ void Logger::initialize(const QString &logDir, LogLevel consoleLevel, LogLevel f
 
     if(!m_logFile.open(QIODeviceBase::WriteOnly))
     {
-        writeToConsole(LogLevel::Fatal, "致命错误！日志文件初始化失败");
-        qApp->quit();
+        writeToConsole(LogLevel::Warning, "日志文件初始化失败,停止");
+        m_enableFileLogging = false;
     }
 
     if(m_consoleLevel == LogLevel::Debug)
         writeToConsole(LogLevel::Debug, "日志文件创建成功");
 
     m_logFile.close();
+    //创建新的日志文件，结束
 
     m_isInitialize = true;
 
@@ -78,8 +81,10 @@ void Logger::log(LogLevel level, const QString& message, const char *file, int l
 {
     if(!m_isInitialize) return;
 
+    //如果没有一个满足等级要求就直接返回
     if((qint16(level) < qint16(m_consoleLevel)) && (qint16(level) < qint16(m_fileLevel))) return;
 
+    //构造格式化信息，开始
     QString formattedMsg;
     QString fileString(file);
     fileString = fileString.sliced(fileString.lastIndexOf('/') + 1);
@@ -87,19 +92,25 @@ void Logger::log(LogLevel level, const QString& message, const char *file, int l
                    + '[' + fileString + ':' + QString::number(line) + ']'
                    + '[' + function + ']'
                    + '[' + message + ']';
+    //构造格式化信息，结束
 
+    //写入控制台
     if(qint16(level) >= qint16(m_consoleLevel))
     {
         writeToConsole(level, formattedMsg);
     }
 
+    //写入文件
+    if(m_enableFileLogging)
     if(qint16(level) >= qint16(m_fileLevel))
     {
         writeToFile(level, formattedMsg);
     }
 
+    //判断是否超过大小
     rotateLogFileIfNeeded();
 
+    //如果是致命错误就会终止程序
     if(level == LogLevel::Fatal)
     {
         QApplication::closeAllWindows();
@@ -133,6 +144,7 @@ void Logger::installQtMessageHandler()
 
 void Logger::qtMessageHandler(QtMsgType type, const QMessageLogContext &context, const QString &msg)
 {
+    //转换QT的格式至LogLevel
     LogLevel level;
     switch (type) {
     case QtDebugMsg:
@@ -154,6 +166,7 @@ void Logger::qtMessageHandler(QtMsgType type, const QMessageLogContext &context,
 
     instance().log(level, msg, context.file, context.line, context.function);
 
+    //处理旧处理器
     if (sm_oldHandler) {
         sm_oldHandler(type, context, msg);
     }
@@ -235,6 +248,7 @@ void Logger::rotateLogFileIfNeeded()
     QString logFileContents = m_logFile.readAll();
     m_logFile.close();
 
+    //如果大于最大大小就会清除首行直到小于目标最大大小
     while(logFileContents.size() > m_maxFileSize)
     logFileContents.removeAt(logFileContents.indexOf("\n") + 1);
 
