@@ -4,7 +4,7 @@
 #include <QFileInfo>
 #include <QApplication>
 
-QtMessageHandler Logger::m_oldHandler = nullptr;
+QtMessageHandler Logger::sm_oldHandler = nullptr;
 
 Logger &Logger::instance()
 {
@@ -128,7 +128,7 @@ void Logger::setLogFileSizeLimit(qint64 maxSizeBytes)
 
 void Logger::installQtMessageHandler()
 {
-    m_oldHandler = qInstallMessageHandler(Logger::qtMessageHandler);
+    sm_oldHandler = qInstallMessageHandler(Logger::qtMessageHandler);
 }
 
 void Logger::qtMessageHandler(QtMsgType type, const QMessageLogContext &context, const QString &msg)
@@ -154,8 +154,8 @@ void Logger::qtMessageHandler(QtMsgType type, const QMessageLogContext &context,
 
     instance().log(level, msg, context.file, context.line, context.function);
 
-    if (m_oldHandler) {
-        m_oldHandler(type, context, msg);
+    if (sm_oldHandler) {
+        sm_oldHandler(type, context, msg);
     }
 }
 

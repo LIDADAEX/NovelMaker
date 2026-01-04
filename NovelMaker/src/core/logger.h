@@ -62,7 +62,7 @@ private:
     bool m_isInitialize = false;
     bool m_enableFileLogging = true;
 
-    static QtMessageHandler m_oldHandler;
+    static QtMessageHandler sm_oldHandler;
 
     QFile m_logFile;
     LogLevel m_consoleLevel;

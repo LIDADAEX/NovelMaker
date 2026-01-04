@@ -3,7 +3,6 @@
 
 #include <QDir>
 
-[[nodiscard("别忘记检查文件是否打开")]]
 bool FileUtil::fileOpen(QFile& file, QIODeviceBase::OpenModeFlag openMode)
 {
     if(!file.open(openMode))
@@ -44,7 +43,6 @@ bool FileUtil::removeFile(QFile &file)
     }
 }
 
-[[nodiscard("别忘记检查文件夹是否创建")]]
 bool FileUtil::dirCreat(QString DirPath)
 {
     if(!QDir().mkpath(DirPath))
