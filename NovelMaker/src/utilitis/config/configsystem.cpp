@@ -16,6 +16,11 @@ ConfigSystem &ConfigSystem::instance()
 
 void ConfigSystem::initialize(const QString &configDir)
 {
+    initialize(configDir, CONFIG_SYSTEM_FILENAME);
+}
+
+void ConfigSystem::initialize(const QString &configDir, const QString &fileName)
+{
     // 通过m_isInitialize来，防止重复初始化
     if(m_isInitialize)
     {
@@ -30,9 +35,7 @@ void ConfigSystem::initialize(const QString &configDir)
         return;
     }
 
-    /* 设置QFile文件，其中'/'是因为configDir是文件夹路径，CONFIG_SYSTEM_FILENAME是文件名
-     * 但此处有点小问题，以后如果想要更换CONFIG_SYSTEM_FILENAME的名字的话，可能没法更改。*/
-    m_configFile.setFileName(configDir + '/' + CONFIG_SYSTEM_FILENAME);
+    m_configFile.setFileName(configDir + '/' + fileName);
 
     // 将初始化标志提前的原因是，方便后续的如果文件不存在用来创建文件用的，因为saveFile函数需要初始化完成。
     m_isInitialize = true;
@@ -56,7 +59,6 @@ void ConfigSystem::initialize(const QString &configDir)
         m_paths.m_configSystemFileName = CONFIG_SYSTEM_FILENAME;
         m_paths.m_configUserFileName = CONFIG_USER_FILENAME;
         m_paths.m_configWorkspaceName = CONFIG_WORKSPACE_FILENAME;
-        //初始化结束
 
         // 此处的m_fontFamilies是QStringList，所以需要这么做。并且在初始化之前要清空。
         m_editorDefault.m_fontFamilies.clear();
@@ -65,16 +67,30 @@ void ConfigSystem::initialize(const QString &configDir)
         m_editorDefault.m_fontSize = EDITOR_DEFAULT_FONT_SIZE;
         m_editorDefault.m_fontWeight = EDITOR_DEFAULT_FONT_WEIGHT;
         m_editorDefault.m_fontLineHeight = EDITOR_DEFAULT_FONT_LINE_HEIGHT;
+        m_editorDefault.m_islightStyle = EDITOR_DEFAULT_IS_LIGHT_STYLE;
+        //初始化结束
 
         /* 因为saveFile需要完成初始化之后才能调用，所以之前要令初始化完成。
          * 如果保存系统配置文件出错了，就会重新使得初始化完成为假。*/
         if(!saveFile())
         {
             m_isInitialize = false;
+            LOG_WARNING("无法写入系统配置文件，系统配置初始化失败");
+            return;
         }
     }
 
     LOG_INFO("系统配置初始化完成");
+}
+
+bool ConfigSystem::isInitialize()
+{
+    return m_isInitialize;
+}
+
+void ConfigSystem::unInitialize()
+{
+    m_isInitialize = false;
 }
 
 bool ConfigSystem::saveFile()
@@ -113,6 +129,7 @@ bool ConfigSystem::saveFile()
     editorDefaultObject.insert("fontSize", m_editorDefault.m_fontSize);
     editorDefaultObject.insert("fontWeight", m_editorDefault.m_fontWeight);
     editorDefaultObject.insert("fontLineHeight", m_editorDefault.m_fontLineHeight);
+    editorDefaultObject.insert("islightStyle", m_editorDefault.m_islightStyle);
 
     QJsonObject systemObejct;
     systemObejct.insert("application", applicationObejct);
@@ -197,6 +214,7 @@ bool ConfigSystem::lordFile()
     m_editorDefault.m_fontSize = editorDefaultObject.value("fontSize").toInt();
     m_editorDefault.m_fontWeight = editorDefaultObject.value("fontWeight").toInt();
     m_editorDefault.m_fontLineHeight = editorDefaultObject.value("fontLineHeight").toDouble();
+    m_editorDefault.m_islightStyle = editorDefaultObject.value("islightStyle").toBool();
     // 从Json文件中读取数据结束
 
     LOG_INFO("系统配置文件装载成功");

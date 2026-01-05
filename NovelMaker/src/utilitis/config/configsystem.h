@@ -18,7 +18,26 @@ public:
      * 形参：
      * configDir：系统配置文件的文件目录，默认值可以在configdefine.h文件中找到。
      ***********************************/
-    void initialize(const QString &logDir = CONFIG_DIR);
+
+    /***********************************
+     * 函数名：initialize
+     * 作用：初始化
+     * 返回值：void
+     * 形参：
+     * configDir：系统配置文件的文件目录，默认值可以在configdefine.h文件中找到。
+     * fileName：系统配置文件的文件名称，默认值可以在configdefine.h文件中找到。
+     ***********************************/
+
+    /***********************************
+     * 函数名：unInitialize
+     * 作用：取消初始化
+     * 返回值：void
+     * 形参：void
+     ***********************************/
+    void initialize(const QString &configDir = CONFIG_DIR);
+    void initialize(const QString &configDir, const QString &fileName);
+    bool isInitialize();
+    void unInitialize();
 
     /***********************************
      * 函数名：saveFile
@@ -59,6 +78,8 @@ public:
 
     struct EditorDefault
     {
+        bool m_islightStyle;
+
         QStringList m_fontFamilies;
         quint16 m_fontSize;
         quint16 m_fontWeight;

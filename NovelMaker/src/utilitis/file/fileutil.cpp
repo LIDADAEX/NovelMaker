@@ -51,6 +51,6 @@ bool FileUtil::dirCreat(QString DirPath)
         return false;
     }
 
-    LOG_DEBUG(DirPath + "文件夹路径创建成功");
+    LOG_DEBUG(DirPath + "文件夹路径创建或检测成功");
     return true;
 }
