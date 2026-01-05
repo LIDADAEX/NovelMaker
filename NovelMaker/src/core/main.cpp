@@ -1,5 +1,6 @@
 #include "src/utilitis/config/configsystem.h"
 #include "src/utilitis/config/configuser.h"
+#include "src/utilitis/config/configworkspace.h"
 #include "src/windows/mainwindow.h"
 
 #include "logger.h"
@@ -19,6 +20,10 @@ int main(int argc, char *argv[])
 
     ConfigUser::instance().initialize();
     ConfigUser::instance().lordFile();
+
+    ConfigWorkspace configWorkspace;
+    configWorkspace.initialize(ConfigSystem::instance().m_paths.m_configDir, ConfigSystem::instance().m_paths.m_configWorkspaceName);
+    configWorkspace.lordFile();
 
     MainWindow w;
     w.show();

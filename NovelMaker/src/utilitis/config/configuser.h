@@ -41,6 +41,9 @@ private:
     bool m_isInitialize;
 
     QFile m_configFile;
+
+    QString m_configDir;
+    QString m_fileName;
 };
 
 #endif // CONFIGUSER_H

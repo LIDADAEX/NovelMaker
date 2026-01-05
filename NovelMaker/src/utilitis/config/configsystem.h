@@ -97,6 +97,9 @@ private:
     bool m_isInitialize = false;
 
     QFile m_configFile;
+
+    QString m_configDir;
+    QString m_fileName;
 };
 
 #endif // CONFIGSYSTEM_H

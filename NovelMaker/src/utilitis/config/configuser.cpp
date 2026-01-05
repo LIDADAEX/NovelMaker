@@ -15,6 +15,8 @@ ConfigUser &ConfigUser::instance()
 
 void ConfigUser::initialize(const QString &configDir)
 {
+    m_configDir = configDir;
+    m_fileName = CONFIG_USER_FILENAME;
     initialize(configDir, CONFIG_USER_FILENAME);
 }
 
@@ -26,6 +28,9 @@ void ConfigUser::initialize(const QString &configDir, const QString &fileName)
         LOG_WARNING("重复初始化用户配置文件");
         return;
     }
+
+    m_configDir = configDir;
+    m_fileName = fileName;
 
     // 检测文件夹路径是否存在，不存在则创建
     if(!FileUtil::dirCreat(configDir))
@@ -146,7 +151,7 @@ bool ConfigUser::lordFile()
         else
         {
             m_isInitialize = false;
-            initialize();
+            initialize(m_configDir, m_fileName);
         }
         return false;
     }

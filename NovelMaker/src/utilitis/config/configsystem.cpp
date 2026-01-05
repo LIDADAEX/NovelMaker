@@ -16,6 +16,8 @@ ConfigSystem &ConfigSystem::instance()
 
 void ConfigSystem::initialize(const QString &configDir)
 {
+    m_configDir = configDir;
+    m_fileName = CONFIG_SYSTEM_FILENAME;
     initialize(configDir, CONFIG_SYSTEM_FILENAME);
 }
 
@@ -27,6 +29,9 @@ void ConfigSystem::initialize(const QString &configDir, const QString &fileName)
         LOG_WARNING("重复初始化系统配置文件");
         return;
     }
+
+    m_configDir = configDir;
+    m_fileName = fileName;
 
     // 检测文件夹路径是否存在，不存在则创建
     if(!FileUtil::dirCreat(configDir))
@@ -178,7 +183,7 @@ bool ConfigSystem::lordFile()
         else
         {
             m_isInitialize = false;
-            initialize();
+            initialize(m_configDir, m_fileName);
         }
         return false;
     }
