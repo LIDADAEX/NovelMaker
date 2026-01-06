@@ -1,3 +1,4 @@
+#include "src/utilitis/config/configmanager.h"
 #include "src/utilitis/config/configsystem.h"
 #include "src/utilitis/config/configuser.h"
 #include "src/utilitis/config/configworkspace.h"
@@ -14,15 +15,9 @@ int main(int argc, char *argv[])
     Logger::installQtMessageHandler();
     Logger::instance().initialize(LOG_DIR, LogLevel::Debug);
 
-    ConfigSystem::instance().initialize(CONFIG_DIR, CONFIG_SYSTEM_FILENAME);
-    ConfigSystem::instance().lordFile();    
-
-    ConfigUser::instance().initialize(ConfigSystem::instance().m_paths.m_configDir, ConfigSystem::instance().m_paths.m_configUserFileName);
-    ConfigUser::instance().lordFile();
-
-    ConfigWorkspace configWorkspace;
-    configWorkspace.initialize(ConfigSystem::instance().m_paths.m_configDir, ConfigSystem::instance().m_paths.m_configWorkspaceName);
-    configWorkspace.lordFile();
+    ConfigeManager configManager;
+    configManager.initialize();
+    configManager.initializeProject(CONFIG_DIR, "project.json");
 
     MainWindow w;
     w.show();
