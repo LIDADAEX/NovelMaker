@@ -11,7 +11,6 @@ ConfigProject::ConfigProject()
 
 void ConfigProject::initialConfigData()
 {
-
 }
 
 QJsonDocument ConfigProject::constructJsonDocument()

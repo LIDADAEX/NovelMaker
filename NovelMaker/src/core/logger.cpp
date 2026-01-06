@@ -81,7 +81,6 @@ void Logger::log(LogLevel level, const QString& message, const char *file, int l
 {
     if(!m_isInitialize) return;
 
-    //如果没有一个满足等级要求就直接返回
     if((qint16(level) < qint16(m_consoleLevel)) && (qint16(level) < qint16(m_fileLevel))) return;
 
     //构造格式化信息，开始
@@ -94,21 +93,18 @@ void Logger::log(LogLevel level, const QString& message, const char *file, int l
                    + '[' + message + ']';
     //构造格式化信息，结束
 
-    //写入控制台
+    rotateLogFileIfNeeded();
+
     if(qint16(level) >= qint16(m_consoleLevel))
     {
         writeToConsole(level, formattedMsg);
     }
 
-    //写入文件
     if(m_enableFileLogging)
     if(qint16(level) >= qint16(m_fileLevel))
     {
         writeToFile(level, formattedMsg);
     }
-
-    //判断是否超过大小
-    rotateLogFileIfNeeded();
 
     //如果是致命错误就会终止程序
     if(level == LogLevel::Fatal)
@@ -239,26 +235,24 @@ void Logger::rotateLogFileIfNeeded()
 {
     if(m_logFile.size() <= m_maxFileSize) return;
 
-    if(!m_logFile.open(QIODeviceBase::ReadOnly))
-    {
-        qWarning() << "日志文件正在被占用！";
-        return;
-    }
+    if(m_consoleLevel <= LogLevel::Info)
+        writeToConsole(LogLevel::Info, "日志已满，正在创建新日志文件");
 
-    QString logFileContents = m_logFile.readAll();
-    m_logFile.close();
+    QString currentDateTime = QDateTime::currentDateTime().toString("yyyy_MM_ddThh_mm_ss");
 
-    //如果大于最大大小就会清除首行直到小于目标最大大小
-    while(logFileContents.size() > m_maxFileSize)
-    logFileContents.removeAt(logFileContents.indexOf("\n") + 1);
+    m_logFile.setFileName(m_logDirectory + '/' +
+                          "__log_" +currentDateTime +
+                          "_.txt");
 
     if(!m_logFile.open(QIODeviceBase::WriteOnly))
     {
-        qWarning() << "日志文件正在被占用！";
-        return;
+        writeToConsole(LogLevel::Warning, "日志文件初始化失败,停止");
+        m_enableFileLogging = false;
     }
 
-    m_logFile.write(logFileContents.toUtf8());
+    if(m_consoleLevel == LogLevel::Debug)
+        writeToConsole(LogLevel::Debug, "日志文件创建成功");
+
     m_logFile.close();
 }
 
