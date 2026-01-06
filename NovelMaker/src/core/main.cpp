@@ -11,14 +11,13 @@ int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
 
-    ConfigSystem::instance().initialize();
-    ConfigSystem::instance().lordFile();
-
-
     Logger::installQtMessageHandler();
-    Logger::instance().initialize(ConfigSystem::instance().m_paths.m_logDir, LogLevel::Debug);
+    Logger::instance().initialize(LOG_DIR, LogLevel::Debug);
 
-    ConfigUser::instance().initialize();
+    ConfigSystem::instance().initialize(CONFIG_DIR, CONFIG_SYSTEM_FILENAME);
+    ConfigSystem::instance().lordFile();    
+
+    ConfigUser::instance().initialize(ConfigSystem::instance().m_paths.m_configDir, ConfigSystem::instance().m_paths.m_configUserFileName);
     ConfigUser::instance().lordFile();
 
     ConfigWorkspace configWorkspace;

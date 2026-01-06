@@ -1,59 +1,17 @@
 #ifndef CONFIGSYSTEM_H
 #define CONFIGSYSTEM_H
 
-#include "configdefine.h"
+#include "configbase.h"
 
 #include <QFile>
 #include <QObject>
 
-class ConfigSystem
+class ConfigSystem : public ConfigBase
 {
 public:
     static ConfigSystem& instance();
 
-    /***********************************
-     * 函数名：initialize
-     * 作用：初始化
-     * 返回值：void
-     * 形参：
-     * configDir：系统配置文件的文件目录，默认值可以在configdefine.h文件中找到。
-     ***********************************/
-
-    /***********************************
-     * 函数名：initialize
-     * 作用：初始化
-     * 返回值：void
-     * 形参：
-     * configDir：系统配置文件的文件目录，默认值可以在configdefine.h文件中找到。
-     * fileName：系统配置文件的文件名称，默认值可以在configdefine.h文件中找到。
-     ***********************************/
-
-    /***********************************
-     * 函数名：unInitialize
-     * 作用：取消初始化
-     * 返回值：void
-     * 形参：void
-     ***********************************/
-    void initialize(const QString &configDir = CONFIG_DIR);
-    void initialize(const QString &configDir, const QString &fileName);
-    bool isInitialize();
-    void unInitialize();
-
-    /***********************************
-     * 函数名：saveFile
-     * 作用：保存系统配置文件，注意，系统配置文件的保存来源于类内部的数据
-     * 返回值：bool，用来说明是否成功保存文件
-     * 形参：无
-     ***********************************/
-    /***********************************
-     * 函数名：lordFile
-     * 作用：从文件中装载数据至类中。使用类中的QFile文件。
-     * 返回值：bool，用来说明是否成功装载文件
-     * 形参：无
-     ***********************************/
-    bool saveFile();
-    bool lordFile();
-
+public:
     struct Application
     {
         QString m_name;
@@ -87,19 +45,17 @@ public:
     } m_editorDefault;
 
 private:
-    ConfigSystem() = default;
+    ConfigSystem();
     ~ConfigSystem() = default;
 
     ConfigSystem(const ConfigSystem&) = delete;
     ConfigSystem& operator=(const ConfigSystem&) = delete;
 
+    void initialConfigData();
+    QJsonDocument constructJsonDocument();
+    void constructConfigData(QJsonDocument jsonDocument);
+
 private:
-    bool m_isInitialize = false;
-
-    QFile m_configFile;
-
-    QString m_configDir;
-    QString m_fileName;
 };
 
 #endif // CONFIGSYSTEM_H

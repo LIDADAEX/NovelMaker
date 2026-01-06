@@ -1,17 +1,16 @@
 #ifndef CONFIGWORKSPACE_H
 #define CONFIGWORKSPACE_H
 
+#include "configbase.h"
 #include <QFile>
 #include <QObject>
 
-class ConfigWorkspace
+class ConfigWorkspace : public ConfigBase
 {
 public:
-    void initialize(QString configDir, QString fileName);
-    bool isInitialize(void);
+    ConfigWorkspace();
+    ~ConfigWorkspace() = default;
 
-    bool saveFile();
-    bool lordFile();
 public:
     struct QuickUse
     {
@@ -20,15 +19,11 @@ public:
     }m_qucikUse;
 
 private:
-
+    void initialConfigData();
+    QJsonDocument constructJsonDocument();
+    void constructConfigData(QJsonDocument jsonDocument);
 
 private:
-    QString m_configDir;
-    QString m_fileName;
-    QFile m_configFile;
-
-    bool m_isInitialize = false;
-
 };
 
 #endif // CONFIGWORKSPACE_H

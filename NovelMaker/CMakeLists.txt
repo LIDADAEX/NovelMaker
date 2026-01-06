@@ -33,6 +33,7 @@ set(SRC_UTILITIES
     src/utilitis/config/configuser.h src/utilitis/config/configuser.cpp
     src/utilitis/config/configworkspace.h src/utilitis/config/configworkspace.cpp
     src/utilitis/config/configmanager.h src/utilitis/config/configmanager.cpp
+    src/utilitis/config/configbase.h src/utilitis/config/configbase.cpp
     src/utilitis/file/fileutil.h src/utilitis/file/fileutil.cpp
     src/utilitis/file/jsonfileutil.h src/utilitis/file/jsonfileutil.cpp
 )
@@ -68,8 +69,6 @@ find_package(Qt6 REQUIRED COMPONENTS Core)
 qt_add_executable(NovelMaker
     MANUAL_FINALIZATION
     ${PROJECT_SOURCES}
-
-
 
 )
 
