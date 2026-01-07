@@ -1,7 +1,4 @@
 #include "src/utilitis/config/configmanager.h"
-#include "src/utilitis/config/configsystem.h"
-#include "src/utilitis/config/configuser.h"
-#include "src/utilitis/config/configworkspace.h"
 #include "src/windows/mainwindow.h"
 
 #include "logger.h"
@@ -15,9 +12,8 @@ int main(int argc, char *argv[])
     Logger::installQtMessageHandler();
     Logger::instance().initialize(LOG_DIR, LogLevel::Debug);
 
-    ConfigeManager configManager;
-    configManager.initialize();
-    configManager.initializeProject(CONFIG_DIR, "project.json");
+    ConfigeManager::instance().initialize();
+    ConfigeManager::instance().initializeProject(CONFIG_DIR, "project.json");
 
     MainWindow w;
     w.show();

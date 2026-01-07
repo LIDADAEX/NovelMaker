@@ -9,6 +9,23 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 
+ConfigBase::ConfigBase(const ConfigBase &c_configBase)
+{
+    m_configDir = c_configBase.m_configDir;
+    m_configType = c_configBase.m_configType;
+    m_configFile.setFileName(c_configBase.m_configFile.fileName());
+    m_isInitialize = c_configBase.m_isInitialize;
+}
+
+ConfigBase &ConfigBase::operator=(const ConfigBase &c_configBase)
+{
+    m_configDir = c_configBase.m_configDir;
+    m_configType = c_configBase.m_configType;
+    m_configFile.setFileName(c_configBase.m_configFile.fileName());
+    m_isInitialize = c_configBase.m_isInitialize;
+    return *this;
+}
+
 void ConfigBase::initialize(const QString &configDir, const QString &fileName)
 {
     switch(m_configType)

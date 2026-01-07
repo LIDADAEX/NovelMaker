@@ -31,6 +31,18 @@ class ConfigBase
 public:
     ConfigBase() = default;
     virtual ~ConfigBase() = default;
+
+    /**
+     * @brief 拷贝构造函数，注意不会复制QFile的打开情况
+     * @param c_configBase 待复制的类
+     */
+    ConfigBase(const ConfigBase& c_configBase);
+
+    /**
+     * @brief 等号运算符，注意不会复制QFile的打开情况
+     * @param c_configBase 待复制的类
+     */
+    ConfigBase& operator=(const ConfigBase&);
     /**
      * @brief 初始化配置类，所有配置类都需要初始化才能使用
      * @param configDir 配置文件的文件目录，默认值可以在configdefine.h文件中找到
@@ -55,11 +67,13 @@ public:
 
     /**
      * @brief 用于将类中的数据构造成Json文档供saveFile函数使用
+     * @return 返回需要写入文档的json文档
      */
     virtual QJsonDocument constructJsonDocument() = 0;
 
     /**
      * @brief 用于处理从loadFile函数中得到的json文档，使其变为类中的数据
+     * @param jsonDocument 从文件中解析而来的json文档
      */
     virtual void constructConfigData(QJsonDocument jsonDocument) = 0;
 
@@ -74,7 +88,6 @@ public:
 
 public:
     ConfigList m_configType;        ///<用来区分配置类型
-private:
 
 private:
 
