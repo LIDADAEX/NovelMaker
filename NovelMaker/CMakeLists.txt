@@ -24,6 +24,7 @@ set(SRC_WINDOWS
     src/windows/settingwidget.h src/windows/settingwidget.cpp src/windows/settingwidget.ui
     src/windows/worldwidget.h src/windows/worldwidget.cpp src/windows/worldwidget.ui
     src/windows/characterwidget.h src/windows/characterwidget.cpp src/windows/characterwidget.ui
+    src/windows/widgetbase.h src/windows/widgetbase.cpp
 )
 
 set(SRC_UTILITIES
@@ -69,7 +70,7 @@ find_package(Qt6 REQUIRED COMPONENTS Core)
 qt_add_executable(NovelMaker
     MANUAL_FINALIZATION
     ${PROJECT_SOURCES}
-    src/windows/widgetbase.h src/windows/widgetbase.cpp
+
 
 )
 
