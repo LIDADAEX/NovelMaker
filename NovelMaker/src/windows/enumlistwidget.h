@@ -3,9 +3,11 @@
 
 #include <qtypes.h>
 
-enum class widget : quint16{
+enum class WidgetList : quint16{
     mainWidget,
     settingWidget,
+    characterWidget,
+    worldWidget,
 };
 
 #endif // ENUMLISTWIDGET_H

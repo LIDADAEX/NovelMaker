@@ -3,8 +3,10 @@
 
 #include <QMainWindow>
 
+#include "characterwidget.h"
 #include "mainwidget.h"
 #include "settingwidget.h"
+#include "worldwidget.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui {
@@ -21,18 +23,17 @@ public:
     ~MainWindow();
 
 private slots:
-    void changeWidget(widget targetWidget);
-
-private:
-    QMap<QString, QString> preProcessDefineKeyInit(void);
+    void changeWidget(WidgetList targetWidget);
 
 private:
     Ui::MainWindow *ui;
 
-    widget m_presentWidget;
-    widget m_lastWidget;
+    WidgetList m_presentWidget;
+    WidgetList m_lastWidget;
 
     MainWidget* m_mainWidget;
     SettingWidget* m_settingWidget;
+    CharacterWidget* m_characterWidget;
+    WorldWidget* m_worldWidget;
 };
 #endif // MAINWINDOW_H

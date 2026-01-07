@@ -69,6 +69,7 @@ find_package(Qt6 REQUIRED COMPONENTS Core)
 qt_add_executable(NovelMaker
     MANUAL_FINALIZATION
     ${PROJECT_SOURCES}
+    src/windows/widgetbase.h src/windows/widgetbase.cpp
 
 )
 

@@ -2,7 +2,7 @@
 #include "ui_worldwidget.h"
 
 WorldWidget::WorldWidget(QWidget *parent)
-    : QWidget(parent)
+    : WidgetBase(parent)
     , ui(new Ui::WorldWidget)
 {
     ui->setupUi(this);
@@ -11,4 +11,9 @@ WorldWidget::WorldWidget(QWidget *parent)
 WorldWidget::~WorldWidget()
 {
     delete ui;
+}
+
+void WorldWidget::needInitialize()
+{
+
 }

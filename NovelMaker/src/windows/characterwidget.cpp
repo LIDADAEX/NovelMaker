@@ -2,7 +2,7 @@
 #include "ui_characterwidget.h"
 
 CharacterWidget::CharacterWidget(QWidget *parent)
-    : QWidget(parent)
+    : WidgetBase(parent)
     , ui(new Ui::CharacterWidget)
 {
     ui->setupUi(this);
@@ -11,4 +11,9 @@ CharacterWidget::CharacterWidget(QWidget *parent)
 CharacterWidget::~CharacterWidget()
 {
     delete ui;
+}
+
+void CharacterWidget::needInitialize()
+{
+
 }

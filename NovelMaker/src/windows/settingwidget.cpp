@@ -2,7 +2,7 @@
 #include "ui_settingwidget.h"
 
 SettingWidget::SettingWidget(QWidget *parent)
-    : QWidget(parent)
+    : WidgetBase(parent)
     , ui(new Ui::SettingWidget)
 {
     ui->setupUi(this);
@@ -11,4 +11,9 @@ SettingWidget::SettingWidget(QWidget *parent)
 SettingWidget::~SettingWidget()
 {
     delete ui;
+}
+
+void SettingWidget::needInitialize()
+{
+
 }

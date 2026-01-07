@@ -1,7 +1,7 @@
 #ifndef MAINWIDGET_H
 #define MAINWIDGET_H
 
-#include "enumlistwidget.h"
+#include "widgetbase.h"
 
 #include <QWidget>
 
@@ -9,7 +9,7 @@ namespace Ui {
 class MainWidget;
 }
 
-class MainWidget : public QWidget
+class MainWidget : public WidgetBase
 {
     Q_OBJECT
 
@@ -17,11 +17,12 @@ public:
     explicit MainWidget(QWidget *parent = nullptr);
     ~MainWidget();
 
+public slots:
+    void needInitialize();
+
 private:
     Ui::MainWidget *ui;
 
-signals:
-    void requireChangeWidget(widget targetWidget);
 };
 
 #endif // MAINWIDGET_H

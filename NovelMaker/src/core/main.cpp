@@ -13,7 +13,6 @@ int main(int argc, char *argv[])
     Logger::instance().initialize(LOG_DIR, LogLevel::Debug);
 
     ConfigeManager::instance().initialize();
-    ConfigeManager::instance().initializeProject(CONFIG_DIR, "project.json");
 
     MainWindow w;
     w.show();

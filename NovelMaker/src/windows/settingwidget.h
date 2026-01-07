@@ -1,14 +1,14 @@
 #ifndef SETTINGWIDGET_H
 #define SETTINGWIDGET_H
 
-#include "src/windows/enumlistwidget.h"
+#include "widgetbase.h"
 #include <QWidget>
 
 namespace Ui {
 class SettingWidget;
 }
 
-class SettingWidget : public QWidget
+class SettingWidget : public WidgetBase
 {
     Q_OBJECT
 
@@ -16,11 +16,11 @@ public:
     explicit SettingWidget(QWidget *parent = nullptr);
     ~SettingWidget();
 
+public slots:
+    void needInitialize();
+
 private:
     Ui::SettingWidget *ui;
-
-signals:
-    void requireChangeWidget(widget targetWidget);
 };
 
 #endif // SETTINGWIDGET_H

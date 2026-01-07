@@ -1,6 +1,5 @@
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
-#include "./src/core/logger.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -8,40 +7,44 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-    m_presentWidget = widget::mainWidget;
-    m_lastWidget = widget::mainWidget;
+    m_presentWidget = WidgetList::mainWidget;
+    m_lastWidget = WidgetList::mainWidget;
 
     m_mainWidget = new MainWidget(this);
-    connect(m_mainWidget, &MainWidget::requireChangeWidget, this, &MainWindow::changeWidget);
+    connect(m_mainWidget, &WidgetBase::requireChangeWidget, this, &MainWindow::changeWidget);
 
     m_settingWidget = new SettingWidget(this);
-    connect(m_settingWidget, &SettingWidget::requireChangeWidget, this, &MainWindow::changeWidget);
+    connect(m_settingWidget, &WidgetBase::requireChangeWidget, this, &MainWindow::changeWidget);
+
+    m_characterWidget = new CharacterWidget(this);
+    connect(m_characterWidget, &WidgetBase::requireChangeWidget, this, &MainWindow::changeWidget);
+
+    m_worldWidget = new WorldWidget(this);
+    connect(m_worldWidget, &WidgetBase::requireChangeWidget, this, &MainWindow::changeWidget);
 
     ui->stackedWidget->addWidget(m_mainWidget);
     ui->stackedWidget->addWidget(m_settingWidget);
+    ui->stackedWidget->addWidget(m_characterWidget);
+    ui->stackedWidget->addWidget(m_worldWidget);
 }
 
 MainWindow::~MainWindow()
 {
     delete m_mainWidget;
+    delete m_settingWidget;
+    delete m_characterWidget;
+    delete m_worldWidget;
 
     delete ui;
 }
 
-void MainWindow::changeWidget(widget targetWidget)
+void MainWindow::changeWidget(WidgetList targetWidget)
 {
     if(targetWidget != m_presentWidget)
     {
-        ui->stackedWidget->setCurrentIndex(static_cast<quint16>(targetWidget));
+        ui->stackedWidget->setCurrentIndex(quint16(targetWidget));
+        static_cast<WidgetBase*>(ui->stackedWidget->currentWidget())->needInitialize();
         m_lastWidget = m_presentWidget;
         m_presentWidget = targetWidget;
     }
-}
-
-QMap<QString, QString> MainWindow::preProcessDefineKeyInit()
-{
-    QMap<QString, QString> defineKey;
-    defineKey.insert("QWidgetFont-family", "Segoe UI");
-    defineKey.insert("@QWidgetFont-size", "10pt");
-    return defineKey;
 }
