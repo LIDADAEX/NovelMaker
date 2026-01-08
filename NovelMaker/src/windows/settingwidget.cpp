@@ -1,11 +1,24 @@
 #include "settingwidget.h"
 #include "ui_settingwidget.h"
 
+#include "src/utilitis/config/configuser.h"
+
 SettingWidget::SettingWidget(QWidget *parent)
     : WidgetBase(parent)
     , ui(new Ui::SettingWidget)
 {
     ui->setupUi(this);
+
+    connect(ui->checkBox_NT_Dark, &QCheckBox::clicked, ui->checkBox_NT_Light, [=](bool checked){ui->checkBox_NT_Light->setChecked(!checked);});
+    connect(ui->checkBox_NT_Light, &QCheckBox::clicked, ui->checkBox_NT_Dark, [=](bool checked){ui->checkBox_NT_Dark->setChecked(!checked);});
+
+    connect(ui->pushButton_ApplyPage, &QPushButton::clicked, this, [=]{
+        saveSetting(static_cast<SettingList>(ui->TabW_Main->currentIndex()));
+    });
+
+    connect(ui->pushButton_Apply, &QPushButton::clicked, this, [=]{
+        saveSetting();
+    });
 }
 
 SettingWidget::~SettingWidget()
@@ -15,5 +28,46 @@ SettingWidget::~SettingWidget()
 
 void SettingWidget::needInitialize()
 {
+    ConfigUser::instance().loadFile();
+    auto& editor = ConfigUser::instance().m_editor;
 
+    QString fontFamiliesString;
+    for(auto i = editor.m_fontFamilies.begin(); i != editor.m_fontFamilies.end(); i ++)
+    {
+        fontFamiliesString += *i;
+        if(i != editor.m_fontFamilies.end() - 1) fontFamiliesString += ',';
+    }
+
+    ui->lineEdit_NT_Font->setText(fontFamiliesString);
+    ui->spinBox_NT_FontSize->setValue(editor.m_fontSize);
+    ui->spinBox_NT_FontWeight->setValue(editor.m_fontWeight);
+    ui->checkBox_NT_Light->clicked(editor.m_islightStyle);
+    ui->checkBox_NT_Dark->clicked(!editor.m_islightStyle);
+}
+
+void SettingWidget::saveSetting(SettingList settingPage)
+{
+    auto& editor = ConfigUser::instance().m_editor;
+    switch(settingPage)
+    {
+    case Normal:
+        editor.m_fontFamilies = ui->lineEdit_NT_Font->text().split(',');
+        editor.m_fontSize = ui->spinBox_NT_FontSize->value();
+        editor.m_fontWeight = ui->spinBox_NT_FontWeight->value();
+        editor.m_islightStyle = ui->checkBox_NT_Light->isChecked();
+        break;
+    case Special:
+        break;
+    }
+    ConfigUser::instance().saveFile();
+}
+
+void SettingWidget::saveSetting()
+{
+    auto& editor = ConfigUser::instance().m_editor;
+    editor.m_fontFamilies = ui->lineEdit_NT_Font->text().split(',');
+    editor.m_fontSize = ui->spinBox_NT_FontSize->value();
+    editor.m_fontWeight = ui->spinBox_NT_FontWeight->value();
+    editor.m_islightStyle = ui->checkBox_NT_Light->isChecked();
+    ConfigUser::instance().saveFile();
 }

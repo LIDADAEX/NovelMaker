@@ -20,7 +20,15 @@ public slots:
     void needInitialize();
 
 private:
+    enum SettingList : quint16{
+        Normal,
+        Special
+    };
+
     Ui::SettingWidget *ui;
+
+    void saveSetting(SettingList settingPage);
+    void saveSetting();
 };
 
 #endif // SETTINGWIDGET_H
