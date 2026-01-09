@@ -9,6 +9,25 @@ SettingWidget::SettingWidget(QWidget *parent)
 {
     ui->setupUi(this);
 
+    connect(ui->pushButton_NT_Font_Add, &QPushButton::clicked, this, [=]{
+        QString fontString = ui->lineEdit_NT_Font->text();
+        if(!fontString.isEmpty())
+            fontString += ',';
+        if(fontString.contains(ui->FontCB_NT->currentText())) return;
+        fontString += ui->FontCB_NT->currentText();
+        ui->lineEdit_NT_Font->setText(fontString);
+    });
+
+    connect(ui->pushButton_NT_Font_Delete, &QPushButton::clicked, this, [=]{
+        QString fontString = ui->lineEdit_NT_Font->text();
+        if(fontString.isEmpty()) return;
+        qint16 index = fontString.indexOf(',');
+        if(index == -1)
+            ui->lineEdit_NT_Font->clear();
+        else
+            ui->lineEdit_NT_Font->setText(fontString.mid(index + 1));
+    });
+
     connect(ui->checkBox_NT_Dark, &QCheckBox::clicked, ui->checkBox_NT_Light, [=](bool checked){ui->checkBox_NT_Light->setChecked(!checked);});
     connect(ui->checkBox_NT_Light, &QCheckBox::clicked, ui->checkBox_NT_Dark, [=](bool checked){ui->checkBox_NT_Dark->setChecked(!checked);});
 
@@ -19,6 +38,8 @@ SettingWidget::SettingWidget(QWidget *parent)
     connect(ui->pushButton_Apply, &QPushButton::clicked, this, [=]{
         saveSetting();
     });
+
+    connect(ui->pushButton_Confirm, &QPushButton::clicked, this, [=]{emit requireChangeWidget(WidgetList::mainWidget);});
 }
 
 SettingWidget::~SettingWidget()
