@@ -1,0 +1,99 @@
+/* --- 滚动条 (ScrollBars) --- */
+QScrollBar:vertical {
+    background: #f0f0f0;
+    width: 10px;
+    margin: 0px;
+}
+QScrollBar::handle:vertical {
+    background: #c0b8c5;             /* 浅紫灰滑块 */
+    min-height: 20px;
+    border-radius: 5px;
+}
+QScrollBar::handle:vertical:hover {
+    background: #a098a5;
+}
+QScrollBar::add-line:vertical, QScrollBar::sub-line:vertical,
+QScrollBar::add-page:vertical, QScrollBar::sub-page:vertical {
+    height: 0px;
+    background: none;
+}
+
+QScrollBar:horizontal {
+    background: #f0f0f0;
+    height: 10px;
+    margin: 0px;
+}
+QScrollBar::handle:horizontal {
+    background: #c0b8c5;
+    min-width: 20px;
+    border-radius: 5px;
+}
+QScrollBar::handle:horizontal:hover {
+    background: #a098a5;
+}
+QScrollBar::add-line:horizontal, QScrollBar::sub-line:horizontal,
+QScrollBar::add-page:horizontal, QScrollBar::sub-page:horizontal {
+    width: 0px;
+    background: none;
+}
+
+/* --- 滑动条 (Sliders) --- */
+/* 水平 */
+QSlider::groove:horizontal {
+    height: 4px;
+    background: #e0dce0;             /* 浅灰色轨道 */
+    border-radius: 2px;
+}
+QSlider::sub-page:horizontal {
+    background: #d066a8;             /* 依旧是亮粉色，在白底上很醒目 */
+    border-radius: 2px;
+}
+QSlider::handle:horizontal {
+    background: #ffffff;
+    width: 16px;
+    height: 16px;
+    margin: -6px 0;
+    border-radius: 8px;
+    border: 1px solid #c0b8c5;       /* 浅灰边框 */
+}
+QSlider::handle:horizontal:hover {
+    border: 1px solid #d066a8;
+    background-color: #fff5fa;
+}
+
+/* 垂直 */
+QSlider::groove:vertical {
+    width: 4px;
+    background: #e0dce0;
+    border-radius: 2px;
+}
+QSlider::sub-page:vertical {
+    background: #d066a8;
+    border-radius: 2px;
+}
+QSlider::add-page:vertical {
+    background: #e0dce0;
+    border-radius: 2px;
+}
+QSlider::handle:vertical {
+    background: #ffffff;
+    height: 16px;
+    width: 16px;
+    margin: 0 -6px;
+    border-radius: 8px;
+    border: 1px solid #c0b8c5;
+}
+QSlider::handle:vertical:hover {
+    border: 1px solid #d066a8;
+    background-color: #fff5fa;
+}
+QSlider::sub-page:disabled { background: #cccccc; }
+QSlider::handle:disabled { border-color: #cccccc; }
+
+/* --- 旋钮 (QDial) --- */
+QDial {
+    background-color: #e0dce0;
+    color: #d066a8;
+    min-width: 60px;
+    min-height: 60px;
+}

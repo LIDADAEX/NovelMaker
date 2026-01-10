@@ -38,7 +38,12 @@ public:
 
         QString m_configSystemFileName;
         QString m_configUserFileName;
-        QString m_configWorkspaceName;
+        QString m_configWorkspaceFileName;
+        QString m_styleFileName;
+
+        QString m_stylePreDirName;
+        QString m_styleDarkDirName;
+        QString m_styleLightDirName;
 
     } m_paths;
 

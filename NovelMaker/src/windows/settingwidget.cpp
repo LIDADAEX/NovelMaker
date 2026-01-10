@@ -1,4 +1,5 @@
 #include "settingwidget.h"
+#include "src/utilitis/style/stylemanager.h"
 #include "ui_settingwidget.h"
 
 #include "src/utilitis/config/configuser.h"
@@ -64,6 +65,7 @@ void SettingWidget::needInitialize()
     ui->spinBox_NT_FontWeight->setValue(editor.m_fontWeight);
     ui->checkBox_NT_Light->clicked(editor.m_islightStyle);
     ui->checkBox_NT_Dark->clicked(!editor.m_islightStyle);
+    ui->doubleSpinBox_NT_FontHight->setValue(editor.m_fontLineHeight);
 }
 
 void SettingWidget::saveSetting(SettingList settingPage)
@@ -76,6 +78,8 @@ void SettingWidget::saveSetting(SettingList settingPage)
         editor.m_fontSize = ui->spinBox_NT_FontSize->value();
         editor.m_fontWeight = ui->spinBox_NT_FontWeight->value();
         editor.m_islightStyle = ui->checkBox_NT_Light->isChecked();
+        editor.m_fontLineHeight = ui->doubleSpinBox_NT_FontHight->value();
+        StyleManager::instance().lordStyle();
         break;
     case Special:
         break;
@@ -90,5 +94,7 @@ void SettingWidget::saveSetting()
     editor.m_fontSize = ui->spinBox_NT_FontSize->value();
     editor.m_fontWeight = ui->spinBox_NT_FontWeight->value();
     editor.m_islightStyle = ui->checkBox_NT_Light->isChecked();
+    editor.m_fontLineHeight = ui->doubleSpinBox_NT_FontHight->value();
     ConfigUser::instance().saveFile();
+    StyleManager::instance().lordStyle();
 }

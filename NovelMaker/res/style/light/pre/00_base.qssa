@@ -1,0 +1,12 @@
+/* --- 全局基础 (Global) --- */
+QWidget {
+    background-color: #f7f5f9;       /* 极淡的紫灰色，像大理石 */
+    color: #333333;                  /* 深灰色字体，比纯黑更柔和 */
+    font-family: @fontFamilies;
+    font-size: @fontSize;
+    font-weight: @fontWeight;
+    line-height: @fontLineHeight;
+    selection-background-color: #d066a8; /* 经典的莉莉丝粉 */
+    selection-color: #ffffff;
+    outline: none;
+}

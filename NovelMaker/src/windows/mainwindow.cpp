@@ -1,5 +1,6 @@
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
+#include "src/utilitis/style/stylemanager.h"
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -26,6 +27,8 @@ MainWindow::MainWindow(QWidget *parent)
     ui->stackedWidget->addWidget(m_settingWidget);
     ui->stackedWidget->addWidget(m_characterWidget);
     ui->stackedWidget->addWidget(m_worldWidget);
+
+    StyleManager::instance().initialize();
 }
 
 MainWindow::~MainWindow()

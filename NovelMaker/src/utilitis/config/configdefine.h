@@ -8,6 +8,11 @@
 #define CONFIG_SYSTEM_FILENAME "system.json"
 #define CONFIG_USER_FILENAME "user.json"
 #define CONFIG_WORKSPACE_FILENAME "workspace.json"
+#define STYLE_FILENAME "style.qss"
+
+#define STYLE_PRE_DIRNAME "pre"
+#define STYLE_DARK_DIRNAME "dark"
+#define STYLE_LIGHT_DIRNAME "light"
 
 //系统配置
 #define CONFIG_SYSTEM_APPLICATION_NAME "NovelMaker"

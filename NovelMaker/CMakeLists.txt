@@ -37,6 +37,9 @@ set(SRC_UTILITIES
     src/utilitis/config/configbase.h src/utilitis/config/configbase.cpp
     src/utilitis/file/fileutil.h src/utilitis/file/fileutil.cpp
     src/utilitis/file/jsonfileutil.h src/utilitis/file/jsonfileutil.cpp
+    src/utilitis/style/stylemanager.h src/utilitis/style/stylemanager.cpp
+    src/utilitis/style/styleutil.h src/utilitis/style/styleutil.cpp
+    src/utilitis/style/styledefine.h
 )
 
 set(SRC
@@ -46,7 +49,6 @@ set(SRC
 )
 
 set(RES_STYLE
-    res/style/styledefine.h
 )
 
 set(RES_CONFIG
@@ -71,7 +73,6 @@ qt_add_executable(NovelMaker
     MANUAL_FINALIZATION
     ${PROJECT_SOURCES}
 
-
 )
 
 target_include_directories(NovelMaker PRIVATE ${PROJECT_SOURCE_DIR})
@@ -94,6 +95,16 @@ install(TARGETS NovelMaker
     BUNDLE DESTINATION .
     LIBRARY DESTINATION ${CMAKE_INSTALL_LIBDIR}
     RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR}
+)
+
+add_custom_command(
+    TARGET NovelMaker
+    POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+    ${PROJECT_SOURCE_DIR}/res
+    $<TARGET_FILE_DIR:NovelMaker>/res
+
+    COMMENT "Copying 'res' directory to build folder..."
 )
 
 qt_finalize_executable(NovelMaker)

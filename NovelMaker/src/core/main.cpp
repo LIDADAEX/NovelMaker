@@ -1,6 +1,5 @@
 #include "src/utilitis/config/configmanager.h"
 #include "src/windows/mainwindow.h"
-
 #include "logger.h"
 
 #include <QApplication>

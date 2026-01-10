@@ -1,0 +1,17 @@
+/* --- 分组框 (QGroupBox) --- */
+QGroupBox {
+    border: 1px solid #3e3649;
+    border-radius: 6px;
+    margin-top: 24px;
+    padding-top: 10px;
+}
+QGroupBox::title {
+    subcontrol-origin: margin;
+    subcontrol-position: top left;
+    left: 10px;
+    top: 2px;
+    color: #d066a8;                  /* 标题粉色高亮 */
+    font-weight: bold;
+    background-color: #1e1b24;
+    padding: 0 5px;
+}

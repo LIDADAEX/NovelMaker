@@ -1,6 +1,7 @@
 #ifndef FILEUTIL_H
 #define FILEUTIL_H
 
+#include <QDir>
 #include <QFile>
 
 class FileUtil
@@ -35,6 +36,8 @@ public:
      */
     [[nodiscard("别忘记检查文件夹是否创建")]]
     static bool dirCreat(QString DirPath);
+
+    static QStringList dirFindFiles(QString DirPath, QStringList nameFilter, QDir::Filters filters = QDir::Files, QDir::SortFlags sortFlags = QDir::Name);
 };
 
 #endif // FILEUTIL_H

@@ -1,8 +1,6 @@
 #include "fileutil.h"
 #include "src/core/logger.h"
 
-#include <QDir>
-
 bool FileUtil::fileOpen(QFile& file, QFlags<QFile::OpenModeFlag> openMode)
 {
     if(!file.open(openMode))
@@ -40,4 +38,11 @@ bool FileUtil::dirCreat(QString DirPath)
         return false;
     }
     return true;
+}
+
+QStringList FileUtil::dirFindFiles(QString DirPath, QStringList nameFilter, QDir::Filters filters, QDir::SortFlags sortFlags)
+{
+    QDir dir(DirPath);
+    dir.setNameFilters(nameFilter);
+    return dir.entryList(filters, sortFlags);
 }

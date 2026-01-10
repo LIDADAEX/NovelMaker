@@ -1,5 +1,5 @@
 #include "configsystem.h"
-#include "res/style/styledefine.h"
+#include "src/utilitis/style/styledefine.h"
 #include "src/utilitis/config/configdefine.h"
 
 #include <QJsonArray>
@@ -26,7 +26,11 @@ void ConfigSystem::initialConfigData()
     m_paths.m_logDir = LOG_DIR;
     m_paths.m_configSystemFileName = CONFIG_SYSTEM_FILENAME;
     m_paths.m_configUserFileName = CONFIG_USER_FILENAME;
-    m_paths.m_configWorkspaceName = CONFIG_WORKSPACE_FILENAME;
+    m_paths.m_configWorkspaceFileName = CONFIG_WORKSPACE_FILENAME;
+    m_paths.m_styleFileName = STYLE_FILENAME;
+    m_paths.m_stylePreDirName = STYLE_PRE_DIRNAME;
+    m_paths.m_styleDarkDirName = STYLE_DARK_DIRNAME;
+    m_paths.m_styleLightDirName = STYLE_LIGHT_DIRNAME;
 
     // 此处的m_fontFamilies是QStringList，所以需要这么做。并且在初始化之前要清空。
     m_editorDefault.m_fontFamilies.clear();
@@ -55,7 +59,11 @@ QJsonDocument ConfigSystem::constructJsonDocument()
     pathsObject.insert("logDir", m_paths.m_logDir);
     pathsObject.insert("configSystemFileName", m_paths.m_configSystemFileName);
     pathsObject.insert("configUserFileName", m_paths.m_configUserFileName);
-    pathsObject.insert("configWorkspaceName", m_paths.m_configWorkspaceName);
+    pathsObject.insert("configWorkspaceFileName", m_paths.m_configWorkspaceFileName);
+    pathsObject.insert("styleFileName", m_paths.m_styleFileName);
+    pathsObject.insert("stylePreDirName", m_paths.m_stylePreDirName);
+    pathsObject.insert("styleDarkDirName", m_paths.m_styleDarkDirName);
+    pathsObject.insert("styleLightDirName", m_paths.m_styleLightDirName);
 
     QJsonObject editorDefaultObject;
     //因为FontFamilies是QStringList所以需要用QJsonArray装载。
@@ -94,7 +102,11 @@ void ConfigSystem::constructConfigData(QJsonDocument jsonDocument)
     m_paths.m_logDir = pathsObject.value("logDir").toString();
     m_paths.m_configSystemFileName = pathsObject.value("configSystemFileName").toString();
     m_paths.m_configUserFileName = pathsObject.value("configUserFileName").toString();
-    m_paths.m_configWorkspaceName = pathsObject.value("configWorkspaceName").toString();
+    m_paths.m_configWorkspaceFileName = pathsObject.value("configWorkspaceFileName").toString();
+    m_paths.m_styleFileName = pathsObject.value("styleFileName").toString();
+    m_paths.m_stylePreDirName = pathsObject.value("stylePreDirName").toString();
+    m_paths.m_styleDarkDirName = pathsObject.value("styleDarkDirName").toString();
+    m_paths.m_styleLightDirName = pathsObject.value("styleLightDirName").toString();
 
     QJsonObject editorDefaultObject  = systemObejct.value("editorDefault").toObject();
     // fontFamilies是QStringList，对应的是QJsonArray，所以此处构造QjsonArray。

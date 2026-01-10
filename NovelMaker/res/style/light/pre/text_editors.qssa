@@ -1,0 +1,23 @@
+/* --- 输入框与文本显示 (Text Inputs & Display) --- */
+QLineEdit, QTextEdit, QPlainTextEdit, QTextBrowser {
+    background-color: #ffffff;
+    border: 1px solid #c0b8c5;       /* 稍微明显的边框 */
+    border-radius: 4px;
+    color: #333333;
+    padding: 4px 8px;
+    selection-background-color: #d066a8;
+}
+QLineEdit:focus, QTextEdit:focus, QPlainTextEdit:focus {
+    border: 1px solid #d066a8;
+    background-color: #fffbfd;       /* 聚焦时极淡的粉白背景 */
+}
+/* 只读模式 */
+QTextBrowser, QLineEdit[readOnly="true"], QTextEdit[readOnly="true"] {
+    background-color: #f2f0f5;       /* 浅灰紫背景，表示不可编辑 */
+    border: 1px solid #dcd5e0;
+    color: #555555;
+}
+QLineEdit::placeholder {
+    color: #9990a0;
+    font-style: italic;
+}

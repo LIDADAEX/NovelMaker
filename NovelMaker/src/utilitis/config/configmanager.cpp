@@ -56,7 +56,7 @@ qint16 ConfigeManager::initializeProject(QString projectDir, QString projectName
     m_configPojectList.append(configPoject);
 
     ConfigWorkspace configWorkspace;
-    configWorkspace.initialize(projectDir, ConfigSystem::instance().m_paths.m_configWorkspaceName);
+    configWorkspace.initialize(projectDir, ConfigSystem::instance().m_paths.m_configWorkspaceFileName);
     if(!configWorkspace.loadFile())
     {
         m_configPojectList.removeLast();
