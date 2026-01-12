@@ -50,7 +50,6 @@ SettingWidget::~SettingWidget()
 
 void SettingWidget::needInitialize()
 {
-    ConfigUser::instance().loadFile();
     auto& editor = ConfigUser::instance().m_editor;
 
     QString fontFamiliesString;

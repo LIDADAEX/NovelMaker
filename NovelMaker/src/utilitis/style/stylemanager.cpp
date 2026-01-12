@@ -5,7 +5,6 @@
 #include "src/utilitis/config/configuser.h"
 #include "src/utilitis/style/styledefine.h"
 
-
 StyleManager::StyleManager()
     : QObject{}
 {

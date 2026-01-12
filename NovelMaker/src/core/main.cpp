@@ -4,6 +4,8 @@
 
 #include <QApplication>
 
+#include "src/utilitis/config/configsystem.h"
+
 int main(int argc, char *argv[])
 {
     QApplication a(argc, argv);
@@ -13,7 +15,12 @@ int main(int argc, char *argv[])
 
     ConfigeManager::instance().initialize();
 
+    QString titleName = QString("%1 v%2").arg(ConfigSystem::instance().m_application.m_displayName).arg(ConfigSystem::instance().m_application.m_version);
+
+    a.setApplicationName(titleName);
+
     MainWindow w;
+    w.setWindowTitle(titleName);
     w.show();
 
     return a.exec();

@@ -1,6 +1,8 @@
 #include "mainwidget.h"
 #include "ui_mainwidget.h"
 
+#include "src/utilitis/config/configuser.h"
+
 MainWidget::MainWidget(QWidget *parent)
     : WidgetBase(parent)
     , ui(new Ui::MainWidget)
@@ -19,5 +21,12 @@ MainWidget::~MainWidget()
 
 void MainWidget::needInitialize()
 {
+    ConfigUser::instance().loadFile();
+    auto& editor = ConfigUser::instance().m_editor;
 
+    QFont font(editor.m_fontFamilies, editor.m_fontSize, editor.m_fontWeight);
+
+    ui->TextB_Preview->setFont(font);
+    ui->TextB_Preview->selectAll();
+    ui->TextB_Preview->setCurrentFont(font);
 }
