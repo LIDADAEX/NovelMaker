@@ -9,12 +9,23 @@
 StyleManager::StyleManager()
     : QObject{}
 {
-    m_watcherEnable = false;
     m_watcherEnableManual = false;
 
-    m_timer.setSingleShot(true);
-    connect(&m_timer, &QTimer::timeout, this, [=]{
-        m_watcherEnable = true;
+    m_debounceTimer.setSingleShot(true);
+
+    connect(&m_debounceTimer, &QTimer::timeout, this, [=]{
+        if(m_styleUtil->merger())
+        {
+            m_watcher.removePaths(m_watcher.files());
+            m_watcher.addPaths(m_styleUtil->getFileList());
+        }
+
+        QString styleSheet = m_styleUtil->getStyle();
+
+        if(!styleSheet.isEmpty())
+            qApp->setStyleSheet(styleSheet);
+
+        LOG_INFO("样式装载成功");
     });
 }
 
@@ -40,24 +51,7 @@ void StyleManager::DanamicWatcher(bool enable)
     if(enable)
     {
         connect(&m_watcher, &QFileSystemWatcher::fileChanged, this, [=](QString filePath){
-            if(!m_watcherEnable)
-            {
-                if(!m_timer.isActive()) m_timer.start(10);
-                return;
-            }
-
-            if(m_styleUtil->merger())
-            {
-                m_watcher.removePaths(m_watcher.files());
-                m_watcher.addPaths(m_styleUtil->getFileList());
-            }
-
-            QString styleSheet = m_styleUtil->getStyle();
-
-            if(!styleSheet.isEmpty())
-                qApp->setStyleSheet(styleSheet);
-
-            LOG_INFO("样式装载成功");
+            m_debounceTimer.start(100);
         });
     }
     else
