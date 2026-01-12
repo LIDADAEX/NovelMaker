@@ -3,6 +3,7 @@
 #include "src/core/logger.h"
 #include "src/utilitis/config/configsystem.h"
 #include "src/utilitis/config/configuser.h"
+#include "src/utilitis/style/styledefine.h"
 
 
 StyleManager::StyleManager()
@@ -79,10 +80,10 @@ void StyleManager::lordStyle()
             fonmtFamiliesString.append(',');
         }
     }
-    styleKey.insert("@fontFamilies", fonmtFamiliesString);
-    styleKey.insert("@fontLineHeight", QString::number(editor.m_fontLineHeight));
-    styleKey.insert("@fontSize", QString::number(editor.m_fontSize) + "px");
-    styleKey.insert("@fontWeight", QString::number(editor.m_fontWeight));
+    styleKey.insert(STYLEKEY_FONT_FAMILIES, fonmtFamiliesString);
+    styleKey.insert(STYLEKEY_FONT_LINEHEIGHT, QString::number(editor.m_fontLineHeight));
+    styleKey.insert(STYLEKEY_FONT_SIZE, QString::number(editor.m_fontSize) + "px");
+    styleKey.insert(STYLEKEY_FONT_WEIGHT, QString::number(editor.m_fontWeight));
 
     if(m_styleUtil != nullptr) delete m_styleUtil;
 
