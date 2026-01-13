@@ -8,6 +8,7 @@ enum class WidgetList : quint16{
     settingWidget,
     characterWidget,
     worldWidget,
+    uninitliaze,
 };
 
 #endif // ENUMLISTWIDGET_H

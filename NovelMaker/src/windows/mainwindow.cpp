@@ -8,8 +8,8 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-    m_presentWidget = WidgetList::mainWidget;
-    m_lastWidget = WidgetList::mainWidget;
+    m_presentWidget = WidgetList::uninitliaze;
+    m_lastWidget = WidgetList::uninitliaze;
 
     m_mainWidget = new MainWidget(this);
     connect(m_mainWidget, &WidgetBase::requireChangeWidget, this, &MainWindow::changeWidget);
@@ -29,6 +29,7 @@ MainWindow::MainWindow(QWidget *parent)
     ui->stackedWidget->addWidget(m_worldWidget);
 
     StyleManager::instance().initialize();
+    changeWidget(WidgetList::mainWidget);
 }
 
 MainWindow::~MainWindow()

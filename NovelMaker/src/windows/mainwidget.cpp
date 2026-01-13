@@ -29,4 +29,6 @@ void MainWidget::needInitialize()
     ui->TextB_Preview->setFont(font);
     ui->TextB_Preview->selectAll();
     ui->TextB_Preview->setCurrentFont(font);
+
+    ui->TextB_Preview->setLineHeight(editor.m_fontLineHeight);
 }

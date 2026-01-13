@@ -10,7 +10,6 @@
 #define EDITOR_DEFAULT_IS_LIGHT_STYLE true
 
 #define STYLEKEY_FONT_FAMILIES "@fontFamilies"
-#define STYLEKEY_FONT_LINEHEIGHT "@fontLineHeight"
 #define STYLEKEY_FONT_SIZE "@fontSize"
 #define STYLEKEY_FONT_WEIGHT "@fontWeight"
 

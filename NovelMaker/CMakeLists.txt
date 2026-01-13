@@ -72,6 +72,7 @@ find_package(Qt6 REQUIRED COMPONENTS Core)
 qt_add_executable(NovelMaker
     MANUAL_FINALIZATION
     ${PROJECT_SOURCES}
+    widget/textbrowser.h widget/textbrowser.cpp
 
 )
 

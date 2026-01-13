@@ -74,7 +74,6 @@ void StyleManager::lordStyle()
         }
     }
     styleKey.insert(STYLEKEY_FONT_FAMILIES, fonmtFamiliesString);
-    styleKey.insert(STYLEKEY_FONT_LINEHEIGHT, QString::number(editor.m_fontLineHeight));
     styleKey.insert(STYLEKEY_FONT_SIZE, QString::number(editor.m_fontSize) + "px");
     styleKey.insert(STYLEKEY_FONT_WEIGHT, QString::number(editor.m_fontWeight));
 

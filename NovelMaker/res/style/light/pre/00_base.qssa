@@ -5,7 +5,6 @@ QWidget {
     font-family: @fontFamilies;
     font-size: @fontSize;
     font-weight: @fontWeight;
-    line-height: @fontLineHeight;
     selection-background-color: #d066a8; /* 经典的莉莉丝粉 */
     selection-color: #ffffff;
     outline: none;

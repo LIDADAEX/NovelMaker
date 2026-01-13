@@ -5,7 +5,6 @@ QWidget {
     font-family: @fontFamilies;
     font-size: @fontSize;
     font-weight: @fontWeight;
-    line-height: @fontLineHeight;
     selection-background-color: #a0467f; 
     selection-color: #ffffff;
     outline: none;
