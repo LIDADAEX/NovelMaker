@@ -27,6 +27,10 @@ set(SRC_WINDOWS
     src/windows/widgetbase.h src/windows/widgetbase.cpp
 )
 
+set(SRC_WIDGET
+    src/widget/textbrowser.h src/widget/textbrowser.cpp
+)
+
 set(SRC_UTILITIES
     src/utilitis/config/configdefine.h
     src/utilitis/config/configsystem.h src/utilitis/config/configsystem.cpp
@@ -46,6 +50,7 @@ set(SRC
     ${SRC_CORE}
     ${SRC_WINDOWS}
     ${SRC_UTILITIES}
+    ${SRC_WIDGET}
 )
 
 set(RES_STYLE
@@ -72,7 +77,7 @@ find_package(Qt6 REQUIRED COMPONENTS Core)
 qt_add_executable(NovelMaker
     MANUAL_FINALIZATION
     ${PROJECT_SOURCES}
-    widget/textbrowser.h widget/textbrowser.cpp
+
 
 )
 

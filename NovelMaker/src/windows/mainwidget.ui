@@ -355,7 +355,7 @@ li.checked::marker { content: &quot;\2612&quot;; }
   <customwidget>
    <class>TextBrowser</class>
    <extends>QTextBrowser</extends>
-   <header>widget/textbrowser.h</header>
+   <header>src/widget/textbrowser.h</header>
   </customwidget>
  </customwidgets>
  <resources/>
