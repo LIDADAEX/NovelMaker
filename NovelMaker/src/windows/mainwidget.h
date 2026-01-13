@@ -22,7 +22,7 @@ public slots:
 
 private:
     Ui::MainWidget *ui;
-
+    
 };
 
 #endif // MAINWIDGET_H

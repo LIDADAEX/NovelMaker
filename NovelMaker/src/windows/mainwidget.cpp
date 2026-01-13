@@ -2,6 +2,12 @@
 #include "ui_mainwidget.h"
 
 #include "src/utilitis/config/configuser.h"
+#include "src/utilitis/project/projectmanager.h"
+
+#include <QFileDialog>
+
+
+
 
 MainWidget::MainWidget(QWidget *parent)
     : WidgetBase(parent)
@@ -12,6 +18,12 @@ MainWidget::MainWidget(QWidget *parent)
     connect(ui->pushButton_PT_Characters, &QPushButton::clicked, this, [=]{emit requireChangeWidget(WidgetList::characterWidget);});
     connect(ui->pushButton_PT_World, &QPushButton::clicked, this, [=]{emit requireChangeWidget(WidgetList::worldWidget);});
     connect(ui->pushButton_ET_EditorSetting, &QPushButton::clicked, this, [=]{emit requireChangeWidget(WidgetList::settingWidget);});
+
+    connect(ui->pushButton_ET_CreatProject, &QPushButton::clicked, this, [=]{
+        ProjectManager& projectManager = ProjectManager::instance();
+        projectManager.creatProject(this);
+        ui->label_ReadProject_Text->setText(projectManager.getPrsentProjectName());
+    });
 }
 
 MainWidget::~MainWidget()

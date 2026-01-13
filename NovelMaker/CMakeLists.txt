@@ -70,13 +70,12 @@ set(PROJECT_SOURCES
 )
 
 find_package(Qt6 REQUIRED COMPONENTS Core)
-find_package(Qt6 REQUIRED COMPONENTS Core)
-find_package(Qt6 REQUIRED COMPONENTS Core)
-find_package(Qt6 REQUIRED COMPONENTS Core)
+
 
 qt_add_executable(NovelMaker
     MANUAL_FINALIZATION
     ${PROJECT_SOURCES}
+    src/utilitis/project/projectmanager.h src/utilitis/project/projectmanager.cpp
 
 
 )

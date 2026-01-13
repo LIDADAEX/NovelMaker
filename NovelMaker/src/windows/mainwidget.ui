@@ -42,7 +42,7 @@
             <x>0</x>
             <y>0</y>
             <width>646</width>
-            <height>490</height>
+            <height>524</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout_2">
@@ -181,61 +181,7 @@
        </item>
        <item>
         <layout class="QGridLayout" name="GL_EditorTools">
-         <item row="0" column="0">
-          <widget class="QLabel" name="label_ET_EditorSetting_Tip">
-           <property name="text">
-            <string>编辑器设置</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignmentFlag::AlignCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item row="0" column="1">
-          <widget class="QLabel" name="label_ET_Output_Tip">
-           <property name="text">
-            <string>输出选项</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignmentFlag::AlignCenter</set>
-           </property>
-          </widget>
-         </item>
          <item row="1" column="0">
-          <widget class="QPushButton" name="pushButton_ET_EditorSetting">
-           <property name="text">
-            <string>跳转到编辑器设置页面</string>
-           </property>
-          </widget>
-         </item>
-         <item row="1" column="1">
-          <widget class="QPushButton" name="pushButton_ET_Output">
-           <property name="text">
-            <string>确认输出</string>
-           </property>
-          </widget>
-         </item>
-         <item row="2" column="0">
-          <widget class="QLabel" name="label_ET_Save_Tip">
-           <property name="text">
-            <string>保存</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignmentFlag::AlignCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item row="2" column="1">
-          <widget class="QLabel" name="label_ET_SaveTo_Tip">
-           <property name="text">
-            <string>保存至</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignmentFlag::AlignCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item row="3" column="0">
           <widget class="QPushButton" name="pushButton_ET_Save">
            <property name="text">
             <string>保存当前工程文件至默认位置</string>
@@ -243,40 +189,48 @@
           </widget>
          </item>
          <item row="3" column="1">
+          <widget class="QPushButton" name="pushButton_ET_CloseProject">
+           <property name="text">
+            <string>关闭该项目</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="0">
+          <widget class="QPushButton" name="pushButton_ET_EditorSetting">
+           <property name="text">
+            <string>跳转到编辑器设置页面</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1">
           <widget class="QPushButton" name="pushButton_ET_SaveTo">
            <property name="text">
             <string>保存当前工程文件至选择位置</string>
            </property>
           </widget>
          </item>
-         <item row="4" column="0">
-          <widget class="QLabel" name="label_ET_QuickLord">
-           <property name="text">
-            <string>快速读取</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignmentFlag::AlignCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item row="4" column="1">
-          <widget class="QLabel" name="label_ET_Lord_Tip">
-           <property name="text">
-            <string>读取</string>
-           </property>
-           <property name="alignment">
-            <set>Qt::AlignmentFlag::AlignCenter</set>
-           </property>
-          </widget>
-         </item>
-         <item row="5" column="0">
+         <item row="2" column="0">
           <widget class="QPushButton" name="pushButton_ET_QuickLord">
            <property name="text">
             <string>读取上一次编辑的项目</string>
            </property>
           </widget>
          </item>
-         <item row="5" column="1">
+         <item row="3" column="0">
+          <widget class="QPushButton" name="pushButton_ET_CreatProject">
+           <property name="text">
+            <string>新建新项目</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="1">
+          <widget class="QPushButton" name="pushButton_ET_Output">
+           <property name="text">
+            <string>确认输出</string>
+           </property>
+          </widget>
+         </item>
+         <item row="2" column="1">
           <widget class="QPushButton" name="pushButton_ET_Lord">
            <property name="text">
             <string>选择工程文件读取</string>
