@@ -29,6 +29,10 @@ private:
 
     void saveSetting(SettingList settingPage);
     void saveSetting();
+    void resetSetting(SettingList settingPage);
+    void resetSetting();
+    void cancelModify(SettingList settingPage);
+    void cancelModify();
 };
 
 #endif // SETTINGWIDGET_H
