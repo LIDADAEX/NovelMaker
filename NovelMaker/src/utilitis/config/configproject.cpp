@@ -3,6 +3,12 @@
 #include <QJsonDocument>
 #include <QJsonObject>
 
+ConfigProject &ConfigProject::instance()
+{
+    static ConfigProject instance;
+    return instance;
+}
+
 ConfigProject::ConfigProject()
     : ConfigBase()
 {

@@ -7,13 +7,16 @@
 class ConfigProject : public ConfigBase
 {
 public:
+    static ConfigProject& instance();
+
+private:
     ConfigProject();
     ~ConfigProject() = default;
 
     ConfigProject(const ConfigProject&) = default;
     ConfigProject& operator=(const ConfigProject&)  = default;
 
-private:
+
     /**
      * @brief 用于在找不到配置文件时，用来构造默认配置文件，纯虚函数需要重载
      */

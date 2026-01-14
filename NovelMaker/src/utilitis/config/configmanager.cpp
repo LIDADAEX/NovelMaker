@@ -3,6 +3,8 @@
 #include "configsystem.h"
 #include "configuser.h"
 #include "src/core/logger.h"
+#include "configproject.h"
+#include "configworkspace.h"
 
 ConfigeManager &ConfigeManager::instance()
 {
@@ -48,37 +50,22 @@ bool ConfigeManager::initialize()
     return true;
 }
 
-qint16 ConfigeManager::initializeProject(QString projectDir, QString projectName)
+bool ConfigeManager::initializeProject(QString projectDir, QString projectName)
 {
-    ConfigProject configPoject;
-    configPoject.initialize(projectDir, projectName);
-    if(!configPoject.loadFile()) return INITIALIZE_PROJECT_ERROR;
-    m_configPojectList.append(configPoject);
+    ConfigProject::instance().initialize(projectDir, projectName);
+    if(!ConfigProject::instance().loadFile()) return false;
 
-    ConfigWorkspace configWorkspace;
-    configWorkspace.initialize(projectDir, ConfigSystem::instance().m_paths.m_configWorkspaceFileName);
-    if(!configWorkspace.loadFile())
-    {
-        m_configPojectList.removeLast();
-        return INITIALIZE_PROJECT_ERROR;
-    }
-    m_configWorkspaceList.append(configWorkspace);
-    m_projectNumber++;
-    return m_projectNumber - 1;
-}
-
-bool ConfigeManager::closeProject(quint16 projectNumber)
-{
-    if(projectNumber >= m_projectNumber) return false;
-    m_configPojectList.removeAt(projectNumber);
-    m_configWorkspaceList.removeAt(projectNumber);
+    ConfigWorkspace::instance().initialize(projectDir, ConfigSystem::instance().m_paths.m_configWorkspaceFileName);
+    if(!ConfigWorkspace::instance().loadFile())return false;
+    m_isOpenProject = true;
     return true;
 }
 
-bool ConfigeManager::getConfig(quint16 projectNumber, ConfigProject *configProject, ConfigWorkspace *configWorkspace)
+void ConfigeManager::closeProject()
 {
-    if(projectNumber >= m_projectNumber) return false;
-    configProject = &m_configPojectList[projectNumber];
-    configWorkspace = &m_configWorkspaceList[projectNumber];
-    return true;
+    m_isOpenProject = false;
+    ConfigProject::instance().unInitialize();
+    ConfigWorkspace::instance().unInitialize();
 }
+
+

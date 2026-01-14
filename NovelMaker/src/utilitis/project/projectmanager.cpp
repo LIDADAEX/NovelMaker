@@ -1,4 +1,7 @@
 #include "projectmanager.h"
+#include "src/utilitis/config/configsystem.h"
+#include "src/utilitis/file/fileutil.h"
+#include "src/utilitis/config/configmanager.h"
 
 #include <QFileDialog>
 
@@ -8,24 +11,30 @@ ProjectManager& ProjectManager::instance()
     return instance;
 }
 
-void ProjectManager::creatProject(QString projectDir, QString projectName)
+bool ProjectManager::creatProject(QString projectDir, QString projectName)
 {
     m_presentProjectDir = projectDir;
     m_presentProjectName = projectName;
 
-    m_projectNumber = ConfigeManager::instance().initializeProject(projectDir, projectName);
-    ConfigeManager::instance().getConfig(m_projectNumber, m_configProject, m_configWorkspace);
-
+    return ConfigeManager::instance().initializeProject(projectDir, projectName);
 }
 
-void ProjectManager::creatProject(QWidget* parent)
+bool ProjectManager::creatProject(QWidget* parent)
 {
     QString fileName = QFileDialog::getSaveFileName(parent, "创建新项目", QString(), "项目配置文件(*.json)");
-    if(fileName.isEmpty()) return;
+    if(fileName.isEmpty()) return false;
     if(fileName.last(5) != ".json") fileName += ".json";
-
+    QFile file(fileName);
+    FileUtil::removeFile(file);
     QFileInfo fileInfo(fileName);
-    ProjectManager::instance().creatProject(fileInfo.dir().path(), fileInfo.fileName());
+    file.setFileName(fileInfo.dir().path() + '/' + ConfigSystem::instance().m_paths.m_configWorkspaceFileName);
+    FileUtil::removeFile(file);
+    return ProjectManager::instance().creatProject(fileInfo.dir().path(), fileInfo.fileName());
+}
+
+void ProjectManager::closeProject(quint16 projectNumber)
+{
+    ConfigeManager::instance().closeProject();
 }
 
 QString ProjectManager::getPrsentProjectName()
@@ -33,13 +42,3 @@ QString ProjectManager::getPrsentProjectName()
     return m_presentProjectName.remove(".json");
 }
 
-void ProjectManager::switchProject(quint16 projectNumber)
-{
-    m_projectNumber = projectNumber;
-    ConfigeManager::instance().getConfig(m_projectNumber, m_configProject, m_configWorkspace);
-}
-
-quint16 ProjectManager::getPresentProjectNumber()
-{
-    return m_projectNumber;
-}

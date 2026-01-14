@@ -43,6 +43,7 @@ public:
      * @param c_configBase 待复制的类
      */
     ConfigBase& operator=(const ConfigBase&);
+
     /**
      * @brief 初始化配置类，所有配置类都需要初始化才能使用
      * @param configDir 配置文件的文件目录，默认值可以在configdefine.h文件中找到

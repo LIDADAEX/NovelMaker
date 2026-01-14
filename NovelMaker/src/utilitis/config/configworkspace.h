@@ -8,10 +8,8 @@
 class ConfigWorkspace : public ConfigBase
 {
 public:
-    ConfigWorkspace();
-    ~ConfigWorkspace() = default;
+    static ConfigWorkspace& instance();
 
-public:
     /**
      * @brief 快速使用类，主要是储存一些快速使用的东西
      */
@@ -22,6 +20,11 @@ public:
     }m_qucikUse;
 
 private:
+    ConfigWorkspace();
+    ~ConfigWorkspace() = default;
+
+    ConfigWorkspace(const ConfigWorkspace&) = delete;
+    ConfigWorkspace& operator=(const ConfigWorkspace&) = delete;
 
     /**
      * @brief 用于在找不到配置文件时，用来构造默认配置文件，纯虚函数需要重载

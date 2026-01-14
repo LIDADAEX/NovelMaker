@@ -2,6 +2,12 @@
 
 #include <QJsonObject>
 
+ConfigWorkspace &ConfigWorkspace::instance()
+{
+    static ConfigWorkspace instance;
+    return instance;
+}
+
 ConfigWorkspace::ConfigWorkspace()
     : ConfigBase()
 {
